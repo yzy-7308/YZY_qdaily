@@ -1,0 +1,25 @@
+//
+//  EAKit.pch
+//  EAKit
+//
+//  Created by Eiwodetianna on 16/9/19.
+//  Copyright © 2016年 Eiwodetianna. All rights reserved.
+//
+
+#ifndef EAKit_pch
+#define EAKit_pch
+
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import <CocoaLumberjack.h>
+#import "UMMobClick/MobClick.h"
+#import "SVProgressHUD.h"
+
+#import "EAMacro.h"
+#import "AppDelegate.h"
+#import "UIButton+Block.h"
+#import "FileManagerUtils.h"
+
+#endif /* EAKit_pch */

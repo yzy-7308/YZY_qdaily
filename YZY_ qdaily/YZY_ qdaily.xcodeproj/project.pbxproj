@@ -36,6 +36,7 @@
 		49C29A591D9155F20094A47C /* UIImageView+XLWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C29A541D9155F20094A47C /* UIImageView+XLWebCache.m */; };
 		49C29A5A1D9155F20094A47C /* XLImagePageDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C29A561D9155F20094A47C /* XLImagePageDetailCell.m */; };
 		49C29A5B1D9155F20094A47C /* XLImagePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C29A581D9155F20094A47C /* XLImagePageView.m */; };
+		D928223B583FC77E234CCB80 /* libPods-YZY_ qdaily.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 786268386CC215EF59426162 /* libPods-YZY_ qdaily.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,9 @@
 		49C29A561D9155F20094A47C /* XLImagePageDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLImagePageDetailCell.m; sourceTree = "<group>"; };
 		49C29A571D9155F20094A47C /* XLImagePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLImagePageView.h; sourceTree = "<group>"; };
 		49C29A581D9155F20094A47C /* XLImagePageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLImagePageView.m; sourceTree = "<group>"; };
+		786268386CC215EF59426162 /* libPods-YZY_ qdaily.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YZY_ qdaily.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B033F25CF50DB43C9A4C9C1D /* Pods-YZY_ qdaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YZY_ qdaily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YZY_ qdaily/Pods-YZY_ qdaily.debug.xcconfig"; sourceTree = "<group>"; };
+		D0CAE3108F0FA84F60DABFAB /* Pods-YZY_ qdaily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YZY_ qdaily.release.xcconfig"; path = "Pods/Target Support Files/Pods-YZY_ qdaily/Pods-YZY_ qdaily.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,17 +111,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D928223B583FC77E234CCB80 /* libPods-YZY_ qdaily.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B8FB84C71F00478ECFE6E79 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B033F25CF50DB43C9A4C9C1D /* Pods-YZY_ qdaily.debug.xcconfig */,
+				D0CAE3108F0FA84F60DABFAB /* Pods-YZY_ qdaily.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		49C298CF1D90B84F0094A47C = {
 			isa = PBXGroup;
 			children = (
 				49C298DA1D90B84F0094A47C /* YZY_ qdaily */,
 				49C298D91D90B84F0094A47C /* Products */,
+				1B8FB84C71F00478ECFE6E79 /* Pods */,
+				93E55C5E0AEA22A76DE75AC7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -396,6 +412,14 @@
 			path = XLImagePageView;
 			sourceTree = "<group>";
 		};
+		93E55C5E0AEA22A76DE75AC7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				786268386CC215EF59426162 /* libPods-YZY_ qdaily.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -403,9 +427,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49C298EF1D90B84F0094A47C /* Build configuration list for PBXNativeTarget "YZY_ qdaily" */;
 			buildPhases = (
+				F97A7BF3E4AC33F5901B1811 /* [CP] Check Pods Manifest.lock */,
 				49C298D41D90B84F0094A47C /* Sources */,
 				49C298D51D90B84F0094A47C /* Frameworks */,
 				49C298D61D90B84F0094A47C /* Resources */,
+				5D214C1F1E79326E00EFF3E9 /* [CP] Embed Pods Frameworks */,
+				1285038E517BC121E4195F63 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -460,6 +487,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1285038E517BC121E4195F63 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YZY_ qdaily/Pods-YZY_ qdaily-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5D214C1F1E79326E00EFF3E9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YZY_ qdaily/Pods-YZY_ qdaily-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F97A7BF3E4AC33F5901B1811 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		49C298D41D90B84F0094A47C /* Sources */ = {
@@ -600,6 +675,7 @@
 		};
 		49C298F01D90B84F0094A47C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B033F25CF50DB43C9A4C9C1D /* Pods-YZY_ qdaily.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -613,6 +689,7 @@
 		};
 		49C298F11D90B84F0094A47C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0CAE3108F0FA84F60DABFAB /* Pods-YZY_ qdaily.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;

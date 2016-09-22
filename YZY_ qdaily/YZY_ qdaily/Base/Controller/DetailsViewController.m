@@ -1,18 +1,24 @@
 //
-//  BaseViewController.m
-//  EAKit
+//  DetailsViewController.m
+//  YZY_ qdaily
 //
-//  Created by Eiwodetianna on 16/9/19.
-//  Copyright © 2016年 Eiwodetianna. All rights reserved.
+//  Created by dllo on 16/9/21.
+//  Copyright © 2016年 yzy. All rights reserved.
 //
 
-#import "EABaseViewController.h"
+#import "DetailsViewController.h"
 
-@interface EABaseViewController ()
+@interface DetailsViewController ()
 
 @end
 
-@implementation EABaseViewController
+@implementation DetailsViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

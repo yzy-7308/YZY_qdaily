@@ -8,4 +8,5 @@ target 'YZY_ qdaily' do
   # Pods for YZY_ qdaily
    pod 'AFNetworking', '~> 3.1.0'
    pod 'Masonry', '~> 1.0.2'
+   pod 'SDiPhoneVersion', '~> 1.1.2'
 end

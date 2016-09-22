@@ -10,6 +10,8 @@
 
 @interface CarouselView : UIView
 
-@property (nonatomic, retain)NSArray *imageArray;
+@property (nonatomic, copy)NSMutableArray *imageArray;
+
+@property (nonatomic, copy)NSMutableArray *titleArray;
 
 @end

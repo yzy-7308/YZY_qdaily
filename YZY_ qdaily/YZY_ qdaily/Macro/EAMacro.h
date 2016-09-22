@@ -12,11 +12,7 @@
 /**
  *  DDLog参数
  */
-#ifdef DEBUG
-static const int ddLogLevel = DDLogLevelVerbose;
-#else
-static const int ddLogLevel = DDLogLevelWarning;
-#endif
+
 
 /**
  *  AppStore

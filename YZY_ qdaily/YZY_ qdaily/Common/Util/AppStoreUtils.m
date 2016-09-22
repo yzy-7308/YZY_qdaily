@@ -8,6 +8,7 @@
 
 #import "AppStoreUtils.h"
 #import "SystemUnit.h"
+#import "EAMacro.h"
 
 @implementation AppStoreUtils
 

@@ -8,6 +8,10 @@
 
 #import "CarouselCollectionViewCell.h"
 #import <Masonry.h>
+#import <UIImageView+WebCache.h>
+#import "YZYBaseModel.h"
+#import "YZYPostModel.h"
+
 
 @interface CarouselCollectionViewCell ()
 
@@ -19,50 +23,57 @@
 
 @implementation CarouselCollectionViewCell
 
+- (void)dealloc {
+    [_myImageView release];
+    [_myLabel release];
+    [super dealloc];
+    
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.myImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _myImageView.backgroundColor = [UIColor redColor];
+        _myImageView.backgroundColor = [UIColor blackColor];
+        _myImageView.alpha = 0.8;
         [self.contentView addSubview:_myImageView];
-        _myImageView.contentMode = UIViewContentModeScaleAspectFill;
+//        _myImageView.contentMode = UIViewContentModeScaleAspectFit;
+        [_myImageView release];
         
         self.myLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _myLabel.backgroundColor = [UIColor whiteColor];
-        _myLabel.font = [UIFont systemFontOfSize:24];
+        _myLabel.backgroundColor = [UIColor clearColor];
+        _myLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:22];
         _myLabel.textColor = [UIColor whiteColor];
         _myLabel.numberOfLines = 0;
-        _myLabel.textAlignment = NSTextAlignmentCenter;
+        _myLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_myLabel];
-        
+        [_myLabel release];
     }
     return self;
 }
 
-- (void)setImage:(UIImage *)image {
-    
-    _image = image;
-    _myImageView.image = _image;
-    
+- (void)setYzy:(YZYBaseModel *)yzy {
+    if (_yzy != yzy) {
+        [_yzy release];
+        _yzy = [yzy retain];
+        [_myImageView sd_setImageWithURL:[NSURL URLWithString:_yzy.image]];
+        _myLabel.text = _yzy.post.title;
+        
+    }
 }
 
-- (void)setCarouselTitle:(NSString *)carouselTitle {
-    
-    _carouselTitle = carouselTitle;
-    _myLabel.text = _carouselTitle;
-    
-}
 
 - (void)layoutSubviews {
     
-    _myImageView.frame = self.bounds;
+    _myImageView.frame = self.contentView.frame;
     [_myLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self).offset(-20);
-        make.left.equalTo(self).offset(20);
-        make.right.equalTo(self).offset(-20);
-        make.top.equalTo(self).offset(20);
+        make.bottom.equalTo(self.mas_bottom).offset(-30);
+        make.left.equalTo(self.mas_left).offset(30);
+        make.right.equalTo(self.mas_right).offset(-30);
+        make.top.equalTo(self.mas_bottom).offset(-120);
     }];
+    
     
     
 }

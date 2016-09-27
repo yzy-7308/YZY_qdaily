@@ -69,7 +69,7 @@
  */
 + (NSString *)intervalSinceNow:(long long)timeInterval {
     NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970] * 1000;
-    NSTimeInterval cha = (currentTime - timeInterval) / 1000;
+    NSTimeInterval cha = (currentTime - timeInterval * 1000) / 1000;
     
     NSString *timeString = @"";
     

@@ -2,27 +2,21 @@
 //  YZYBaseModel.h
 //  YZY_ qdaily
 //
-//  Created by dllo on 16/9/21.
+//  Created by dllo on 16/9/23.
 //  Copyright © 2016年 yzy. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "BaseModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
-@interface EABaseModel : NSObject
-/**
- *  基类初始化方法
- *
- *  @param dic model对应的字典
- *
- */
-- (instancetype)initWithDic:(NSDictionary *)dic;
-/**
- *  基类构造器方法
- *
- *  @param dic model对应的字典
- *
- */
-+ (instancetype)modelWithDic:(NSDictionary *)dic;
+@class YZYPostModel;
+
+@interface YZYBaseModel : BaseModel
+
+@property (nonatomic, copy)NSString *image;
+
+@property (nonatomic, assign)NSInteger type;
+
+@property (nonatomic, retain)YZYPostModel *post;
+
+
 @end
-NS_ASSUME_NONNULL_END

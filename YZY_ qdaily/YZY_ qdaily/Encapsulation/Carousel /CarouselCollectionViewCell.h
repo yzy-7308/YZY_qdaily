@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class YZYBaseModel;
 
 @interface CarouselCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, retain)UIImage *image;
 
-@property (nonatomic, copy)NSString *carouselTitle;
+@property (nonatomic, retain)YZYBaseModel *yzy;
 
 @end

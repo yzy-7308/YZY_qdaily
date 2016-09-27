@@ -65,7 +65,7 @@
 /**
  *  获取Document中指定文件的路径
  *
- *  @param fileName      文件名
+ *  @param fileNname      文件名
  *  @param directoryName 目录名
  *
  *  @return 文件的路径

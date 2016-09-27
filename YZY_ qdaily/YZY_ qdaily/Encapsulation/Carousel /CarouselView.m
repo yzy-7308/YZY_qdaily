@@ -8,6 +8,9 @@
 
 #import "CarouselView.h"
 #import "CarouselCollectionViewCell.h"
+#import <Masonry.h>
+
+
 #define WIDTH self.bounds.size.width
 #define HEIGHT self.bounds.size.height
 
@@ -22,9 +25,7 @@ UICollectionViewDataSource
 
 @property (nonatomic, retain)UICollectionView *collectionView;
 
-@property (nonatomic, retain)NSMutableArray *currentImageArray;
-
-@property (nonatomic, retain)NSMutableArray *currentTitltArray;
+@property (nonatomic, retain)NSMutableArray *currentYZYArray;
 
 @property (nonatomic, retain)UIPageControl *pageControl;
 
@@ -34,15 +35,23 @@ UICollectionViewDataSource
 
 @implementation CarouselView
 
+- (void)dealloc {
+    [_collectionView release];
+    [_currentYZYArray release];
+    [_pageControl release];
+    [_timer release];
+    [super dealloc];
+    
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // 初始化可变数组
-        self.currentImageArray = [NSMutableArray array];
-        self.currentTitltArray = [NSMutableArray array];
-        
-        
+        self.currentYZYArray = [NSMutableArray array];
+//        self.YZYArray = [NSMutableArray array];
+
         // 初始化collectionView
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = self.bounds.size;
@@ -50,20 +59,26 @@ UICollectionViewDataSource
         flowLayout.minimumInteritemSpacing = 0;
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = [UIColor lightGrayColor];
         _collectionView.pagingEnabled = YES;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         [self addSubview:_collectionView];
         [_collectionView registerClass:[CarouselCollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
+        [flowLayout release];
+        [_collectionView release];
         
         // 初始化pageControl
         self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectZero];
         _pageControl.pageIndicatorTintColor = [UIColor grayColor];
+        _pageControl.alpha = 0.7;
         _pageControl.currentPageIndicatorTintColor = [UIColor orangeColor];
         _pageControl.hidesForSinglePage = YES;
+        _pageControl.currentPage = 0;
         [_pageControl addTarget:self action:@selector(pageControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:_pageControl];
+        [_pageControl release];
+        
+        [self addTimer];
         
         
         
@@ -71,104 +86,72 @@ UICollectionViewDataSource
     return self;
 }
 
-- (void)setTitleArray:(NSMutableArray *)titleArray {
-    
-    if (_titleArray != titleArray) {
-        _titleArray = titleArray;
-    }
-    if (_currentTitltArray.count > 0) {
-        [_currentTitltArray removeAllObjects];
-        for (UILabel *subLabel in _collectionView.subviews) {
-            if ([subLabel isKindOfClass:[UILabel class]]) {
-                [subLabel removeFromSuperview];
+- (void)pageControlValueChanged:(UIPageControl *)pageControl {
+    [_collectionView setContentOffset:CGPointMake((pageControl.currentPage + 1) * WIDTH, 0) animated:YES];
+}
+
+-(void)setYZYArray:(NSMutableArray *)YZYArray {
+    if (_YZYArray != YZYArray) {
+        [_YZYArray release];
+        _YZYArray = [YZYArray retain];
+        if (_currentYZYArray.count > 0) {
+            [_currentYZYArray removeAllObjects];
+            for (UIView *subView in _collectionView.subviews) {
+                if ([subView isKindOfClass:[UILabel class]]) {
+                    [subView removeFromSuperview];
+                }
+                if ([subView isKindOfClass:[UIImageView class]]) {
+                    [subView removeFromSuperview];
+                }
             }
         }
-    }
-    [_currentTitltArray addObject:[_titleArray lastObject]];
-    [_currentTitltArray addObjectsFromArray:_titleArray];
-    [_currentTitltArray addObject:[_titleArray firstObject]];
+        
+        [_currentYZYArray addObject:[_YZYArray lastObject]];
+        [_currentYZYArray addObjectsFromArray:_YZYArray];
+        [_currentYZYArray addObject:[_YZYArray firstObject]];
+        
+        _collectionView.contentSize = CGSizeMake(WIDTH * _currentYZYArray.count, HEIGHT);
+        
+        CGSize pageControlSize = [_pageControl sizeForNumberOfPages:_YZYArray.count];
+        _pageControl.frame = CGRectMake((WIDTH - pageControlSize.width) / 2, HEIGHT - pageControlSize.height - 5, pageControlSize.width, pageControlSize.height);
+        _pageControl.numberOfPages = _YZYArray.count;
 
-    
+        _collectionView.contentOffset = CGPointMake(WIDTH, 0);
+    }
 }
 
-- (void)setImageArray:(NSMutableArray *)imageArray {
-
-    if (_imageArray != imageArray) {
-        _imageArray = imageArray;
-    }
-    if (_currentImageArray.count > 0) {
-        [_currentImageArray removeAllObjects];
-        for (UIView *subView in _collectionView.subviews) {
-            if ([subView isKindOfClass:[UIImageView class]]) {
-                [subView removeFromSuperview];
-            }
-        }
-    }
-    [_currentImageArray addObject:[_imageArray lastObject]];
-    [_currentImageArray addObjectsFromArray:_imageArray];
-    [_currentImageArray addObject:[_imageArray firstObject]];
-    _collectionView.contentSize = CGSizeMake(WIDTH * _currentImageArray.count, HEIGHT);
-    
-    CGSize pageControlSize = [_pageControl sizeForNumberOfPages:_imageArray.count];
-    _pageControl.frame = CGRectMake((WIDTH - pageControlSize.width) / 2, HEIGHT - pageControlSize.height - 5, pageControlSize.width, pageControlSize.height);
-    _pageControl.numberOfPages = _imageArray.count;
-    _pageControl.currentPage = 0;
-    
-    
-    
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat page = scrollView.contentOffset.x / scrollView.frame.size.width;
-    self.pageControl.currentPage = page;
-    NSLog(@"%f",page);
-    
-}
 
 // 结束减速
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if ([scrollView isEqual:_collectionView]) {
-        NSInteger pageNumber = scrollView.contentOffset.x / scrollView.bounds.size.width;
+        NSInteger pageNumber = scrollView.contentOffset.x / WIDTH;
         if (0 == pageNumber) {
-            pageNumber = _imageArray.count;
-        }else if (_imageArray.count + 1 == pageNumber) {
+            pageNumber = _YZYArray.count;
+        }else if (_YZYArray.count + 1 == pageNumber) {
             pageNumber = 1;
         }
         _pageControl.currentPage = pageNumber - 1;
-        scrollView.contentOffset = CGPointMake(scrollView.bounds.size.width * pageNumber, 0);
+        scrollView.contentOffset = CGPointMake(WIDTH * pageNumber, 0);
         
-        for (UIView *subview in scrollView.subviews) {
-            if ([subview isKindOfClass:[UIScrollView class]]) {
-                UIScrollView *subScrollView = (UIScrollView *)subview;
-                subScrollView.zoomScale = 1.0f;
-            }
-        }
     }
     
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _currentImageArray.count;
+    return _currentYZYArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CarouselCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.image = _currentImageArray[indexPath.item];
-    cell.carouselTitle = _currentTitltArray[indexPath.item];
-    cell.backgroundColor = [UIColor colorWithRed:1.0 green:0.528 blue:0.5525 alpha:1];
+    cell.yzy = _currentYZYArray[indexPath.item];
     return cell;
 }
 
-- (void)pageControlValueChanged:(UIPageControl *)pageControl {
-    
-    [_collectionView setContentOffset:CGPointMake((pageControl.currentPage + 1) * WIDTH, 0) animated:YES];
-    
-}
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     _collectionView.frame = self.bounds;
+    
 
 
 }
@@ -176,7 +159,7 @@ UICollectionViewDataSource
 // 添加定时器
 
 - (void)addTimer {
-    self.timer =  [NSTimer scheduledTimerWithTimeInterval:3.f target:self selector:@selector(nextImage) userInfo:nil repeats:YES];
+    self.timer =  [NSTimer scheduledTimerWithTimeInterval:6.f target:self selector:@selector(nextImage) userInfo:nil repeats:YES];
 
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     //    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
@@ -185,21 +168,22 @@ UICollectionViewDataSource
 
 // timer:下一张图片
 -(void)nextImage {
-//        NSInteger page = self.pageControl.currentPage;
-//        if (page == (_imageArray.count - 1)) {
-//            page = 0;
-//        }else{
-//            page ++;
-//        }
-//        _collectionView.contentOffset = CGPointMake(page * WIDTH, 0);
+        NSInteger pageNumber = self.pageControl.currentPage;
+        if (pageNumber == (_YZYArray.count - 1)) {
+            pageNumber = 0;
+        }else{
+            pageNumber ++;
+        }
+    _collectionView.contentOffset = CGPointMake(pageNumber * WIDTH, 0);
+
+
     
-    
-    NSInteger pageNumber = _collectionView.contentOffset.x / WIDTH;
-    
-    if (_imageArray.count ==  pageNumber) {
-        pageNumber = 0;
-        _collectionView.contentOffset = CGPointMake(pageNumber * WIDTH, 0);
-    }
+//    NSInteger pageNumber = _collectionView.contentOffset.x / WIDTH;
+//    
+//    if (_YZYArray.count ==  pageNumber) {
+//        pageNumber = 0;
+//        _collectionView.contentOffset = CGPointMake(pageNumber * WIDTH, 0);
+//    }
     
     [_collectionView setContentOffset:CGPointMake((pageNumber + 1) * WIDTH, 0) animated:YES];
     _pageControl.currentPage = pageNumber;

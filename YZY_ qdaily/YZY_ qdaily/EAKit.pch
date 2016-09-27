@@ -9,17 +9,17 @@
 #ifndef EAKit_pch
 #define EAKit_pch
 
-
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-#import <CocoaLumberjack.h>
-#import "UMMobClick/MobClick.h"
-#import "SVProgressHUD.h"
 
 #import "EAMacro.h"
 #import "AppDelegate.h"
 #import "UIButton+Block.h"
 #import "FileManagerUtils.h"
+
+#import "UILabel+SizeToFit_W_H.h"
+#import "UIView+ShowMessage.h"
+#import "UIBarButtonItem+SetImage_Click.h"
 
 #endif /* EAKit_pch */

@@ -10,7 +10,7 @@
 #define HttpAPIConst_h
 
 static NSString *const kReleaseHostUrl = @"http://localhost";
-static NSString *const kDevelopHostUrl = @"http://localhost";
+static NSString *const kDevelopHostUrl = @"http://app3.qdaily.com";
 
 
 static NSString *const kHomeReuqestPath = @"";

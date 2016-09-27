@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import "GrayViewController.h"
+#import "LoginViewController.h"
+#import "NewsViewController.h"
 
 @interface AppDelegate ()
 
@@ -25,6 +28,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    GrayViewController *gray = [[GrayViewController alloc] init];
+    LoginViewController *login = [[LoginViewController alloc] init];
+    NewsViewController *news = [[NewsViewController alloc] init];
     
     RootViewController *rootView = [[RootViewController alloc] init];
     UINavigationController *rootNavigation = [[UINavigationController alloc] initWithRootViewController:rootView];

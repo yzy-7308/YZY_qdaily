@@ -16,6 +16,9 @@
 #import "TwoTableViewCell.h"
 #import <Masonry.h>
 #import <MJRefresh.h>
+#import "NewsViewController.h"
+#import "YZYPostModel.h"
+
 
 static NSString *const zeroTableViewCell = @"zeroCell";
 static NSString *const oneTableViewCell = @"oneCell";
@@ -48,9 +51,10 @@ UITableViewDataSource
 - (void)viewWillAppear:(BOOL)animated {
     
 //    [self performSelector:@selector(hidden) withObject:nil afterDelay:0.5];
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
+
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -59,14 +63,36 @@ UITableViewDataSource
     self.navigationController.navigationBar.translucent = YES;
     self.objectArray = [NSMutableArray array];
     self.carouselArray = [NSMutableArray array];
-    
     [self createTableView];
+    
+   
+
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+
+//设置状态栏颜色
+- (void)setStatusBarBackgroundColor:(UIColor *)color {
     
-    
+    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+        statusBar.backgroundColor = color;
+    }
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"%f", scrollView.contentOffset.y);
+    if (scrollView.contentOffset.y > 300) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        [self setStatusBarBackgroundColor:[UIColor whiteColor]];
+    }else {
+        [self setStatusBarBackgroundColor:[UIColor clearColor]];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    }
+}
+
+
+
 
 - (void)createTableView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -64, WIDTH, HEIGHT) style:UITableViewStylePlain];
@@ -77,22 +103,29 @@ UITableViewDataSource
     [_tableView registerClass:[OneTableViewCell class] forCellReuseIdentifier:oneTableViewCell];
     [_tableView registerClass:[TwoTableViewCell class] forCellReuseIdentifier:twoTableViewCell];
     [_tableView release];
-    
-    
-    
+
+    // 刷新, 加载tablewView 方法
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(Refresh)];
     [_tableView.mj_header beginRefreshing];
     _tableView.mj_footer = [MJRefreshBackFooter footerWithRefreshingTarget:self refreshingAction:@selector(Loading)];
+
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    YZYBaseModel *yzy = _objectArray[indexPath.row];
+    NewsViewController *newsView = [[NewsViewController alloc] init];
+    newsView.yzy = yzy;
+    [self.navigationController pushViewController:newsView animated:YES];
+    [newsView release];
     
-    
-   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    YZYBaseModel *yzy = _objectArray[indexPath.item];
+    YZYBaseModel *yzy = _objectArray[indexPath.row];
      if (0 == yzy.type) {
         ZeroTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:zeroTableViewCell];
-        cell.yzy = _objectArray[indexPath.item];
+        cell.yzy = _objectArray[indexPath.row];
         return cell;
      }else if (2 == yzy.type) {
          TwoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:twoTableViewCell];
@@ -115,6 +148,7 @@ UITableViewDataSource
     
 }
 
+// 刷新
 - (void)Refresh {
     
     [self getInfo:@"0"];
@@ -122,6 +156,7 @@ UITableViewDataSource
     
 }
 
+// 加载
 - (void)Loading {
     
     [self getInfo:_number];
@@ -132,6 +167,7 @@ UITableViewDataSource
     return _objectArray.count;
 }
 
+// 网络请求
 - (void)getInfo:(NSString *)number {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -157,8 +193,21 @@ UITableViewDataSource
             }
             CarouselView *carouseView = [[CarouselView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT / 10 * 4.13)];
             carouseView.YZYArray = _carouselArray;
+//            [carouseView setDealWithYzy:^(YZYBaseModel *yzy) {
+//                NewsViewController *newsView = [[NewsViewController alloc] init];
+//                newsView.yzy = yzy;
+//                [self.navigationController pushViewController:newsView animated:YES];
+//                [newsView release];
+//            }];
+            carouseView.dealWithYzy = ^(YZYBaseModel *yzy) {
+                NewsViewController *newsView = [[NewsViewController alloc] init];
+                newsView.yzy = yzy;
+                [self.navigationController pushViewController:newsView animated:YES];
+                [newsView release];
+            };
             dispatch_async(dispatch_get_main_queue(), ^{
                 _tableView.tableHeaderView = carouseView;
+                
                 [_tableView reloadData];
             });
             

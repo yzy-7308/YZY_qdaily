@@ -38,7 +38,14 @@
         _myImageView.backgroundColor = [UIColor blackColor];
         _myImageView.alpha = 0.8;
         [self.contentView addSubview:_myImageView];
-//        _myImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _myImageView.userInteractionEnabled = YES;
+        _myImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _myImageView.clipsToBounds = YES;
+        // 轻拍手势
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+        [_myImageView addGestureRecognizer:tap];
+        [tap release];
+
         [_myImageView release];
         
         self.myLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -59,7 +66,6 @@
         _yzy = [yzy retain];
         [_myImageView sd_setImageWithURL:[NSURL URLWithString:_yzy.image]];
         _myLabel.text = _yzy.post.title;
-        
     }
 }
 
@@ -73,9 +79,11 @@
         make.right.equalTo(self.mas_right).offset(-30);
         make.top.equalTo(self.mas_bottom).offset(-120);
     }];
-    
-    
-    
+ 
+}
+
+- (void)tapAction:(UITapGestureRecognizer *)tap {
+    [self.yzyzyzy nursingNewsByCarousel:_yzy];
 }
 
 

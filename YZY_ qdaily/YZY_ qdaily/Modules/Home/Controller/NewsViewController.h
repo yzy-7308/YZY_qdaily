@@ -7,6 +7,7 @@
 //
 
 #import "DetailsViewController.h"
+@class YZYBaseModel;
 
 @interface NewsViewController : DetailsViewController
 
@@ -14,9 +15,7 @@
 UIWebViewDelegate
 >
 
-{
-    UIWebView *webView;
-}
+@property (nonatomic, retain) YZYBaseModel *yzy;
 
 
 @end

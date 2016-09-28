@@ -14,12 +14,21 @@
 @implementation YZYPostModel
 
 - (void)dealloc{
+    [_title release];
+    [_myDescription release];
+    [_image release];
+    [_super_tag release];
+    [_appview release];
+    [_film_length release];
+    [_datatype release];
+    [_category release];
+    [_column release];
     [super dealloc];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"id"]) {
-        self.myId = (long)value;
+        self.myId = value;
     }
     if ([key isEqualToString:@"description"]) {
         self.myDescription = value;

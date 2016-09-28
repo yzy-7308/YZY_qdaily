@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@class YZYBaseModel;
+
 
 @interface CarouselView : UIView
 
 @property (nonatomic, copy)NSMutableArray *YZYArray;
+
+@property (nonatomic, copy) void (^dealWithYzy)(YZYBaseModel *yzy);
 
 @end

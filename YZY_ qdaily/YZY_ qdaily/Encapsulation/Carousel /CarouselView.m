@@ -20,7 +20,8 @@ static NSString *const cellIdentifier = @"cell";
 
 <
 UICollectionViewDelegate,
-UICollectionViewDataSource
+UICollectionViewDataSource,
+CarouselViewDelegate
 >
 
 @property (nonatomic, retain)UICollectionView *collectionView;
@@ -44,6 +45,11 @@ UICollectionViewDataSource
     
 }
 
+- (void)nursingNewsByCarousel:(YZYBaseModel *)yzy {
+    NSLog(@"%@", yzy);
+    self.dealWithYzy(yzy);
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -59,6 +65,7 @@ UICollectionViewDataSource
         flowLayout.minimumInteritemSpacing = 0;
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+        _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.pagingEnabled = YES;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
@@ -143,9 +150,12 @@ UICollectionViewDataSource
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CarouselCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.yzy = _currentYZYArray[indexPath.item];
+        cell.yzy = _currentYZYArray[indexPath.item];
+        cell.yzyzyzy = self;
     return cell;
 }
+
+
 
 
 - (void)layoutSubviews {

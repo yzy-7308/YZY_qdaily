@@ -9,9 +9,16 @@
 #import <UIKit/UIKit.h>
 @class YZYBaseModel;
 
+@protocol CarouselViewDelegate <NSObject>
+
+- (void)nursingNewsByCarousel:(YZYBaseModel  *)yzy;
+
+@end
+
 @interface CarouselCollectionViewCell : UICollectionViewCell
 
-
 @property (nonatomic, retain)YZYBaseModel *yzy;
+
+@property (nonatomic, assign)id<CarouselViewDelegate>yzyzyzy;
 
 @end

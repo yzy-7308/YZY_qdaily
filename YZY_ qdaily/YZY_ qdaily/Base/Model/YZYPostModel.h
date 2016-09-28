@@ -13,7 +13,7 @@
 
 @interface YZYPostModel : BaseModel
 
-@property (nonatomic, assign)NSInteger myId;
+@property (nonatomic, assign)id myId;
 
 @property (nonatomic, assign)NSInteger genre;
 

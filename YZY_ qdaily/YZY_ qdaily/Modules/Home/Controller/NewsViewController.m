@@ -9,59 +9,108 @@
 #import "NewsViewController.h"
 #import <AFNetworking.h>
 #import "HttpAPIConst.h"
+#import "YZYBaseModel.h"
+#import "YZYPostModel.h"
+
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
 
 @interface NewsViewController ()
 
-@property (nonatomic, retain)UIActivityIndicatorView *act;
+<UIScrollViewDelegate>
+
+@property (nonatomic, retain)UIWebView *webView;
+
+@property (nonatomic, assign) CGFloat start;
 
 @end
 
 @implementation NewsViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-     webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     
+    
+    self.navigationItem.hidesBackButton =YES;
+    self.navigationController.navigationBar.translucent = YES;
+    [self setStatusBarBackgroundColor:[UIColor clearColor]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, -64, WIDTH, HEIGHT)];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *url = [NSString stringWithFormat:@"%@/app3/articles/detail/32639.json", kDevelopHostUrl];
+    NSString *url = [NSString stringWithFormat:@"%@/app3/articles/info/%@.json?", kDevelopHostUrl, _yzy.post.myId];
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responseDic = [responseObject objectForKey:@"response"];
-        NSDictionary *articleDic = [responseDic objectForKey:@"article"];
-        NSString *htmlString = [articleDic objectForKey:@"body"];
-        NSLog(@"sssss :%@", htmlString);
-         [webView loadHTMLString:htmlString baseURL:nil];
-//        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://app3.qdaily.com/assets/qdaily/injection/jsbridge-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js"]]];
-       
-        
-        
-//        [webView stringByEvaluatingJavaScriptFromString:@"http://app3.qdaily.com/assets/qdaily/injection/jsbridge-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js"];
-        
-        
+        NSDictionary *postDic = [responseDic objectForKey:@"post"];
+        NSString *appview = [postDic objectForKey:@"appview"];
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:appview]]];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
     }];
-    webView.dataDetectorTypes = UIDataDetectorTypeAll;
-    [webView setDelegate:self];
-    [self.view addSubview:webView];
-    webView.scalesPageToFit = YES;
+    _webView.dataDetectorTypes = UIDataDetectorTypeAll;
+    _webView.delegate = self;
+    _webView.scrollView.delegate = self;
+    _webView.scalesPageToFit = YES;
+    [self.view addSubview:_webView];
+    [_webView release];
     
 }
 
+
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    NSLog(@"loading");
+//    NSLog(@"loading");
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSLog(@"finish");
-    
+//    NSLog(@"finish");
+ 
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    NSLog(@"fail");
+//    NSLog(@"fail");
     
 }
+
+// 开始拖拽
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _start = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    [UIView animateWithDuration:1.5f animations:^{
+        if (_start < scrollView.contentOffset.y) {
+            [UIView animateWithDuration:1.5f animations:^{
+                [[UIApplication sharedApplication] setStatusBarHidden:YES];
+                _webView.frame = CGRectMake(0, -64, WIDTH, HEIGHT + 20);
+            }];
+        }else if (_start > scrollView.contentOffset.y) {
+            [UIView animateWithDuration:1.0f animations:^{
+                [[UIApplication sharedApplication] setStatusBarHidden:NO];
+                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+                [self setStatusBarBackgroundColor:[UIColor whiteColor]];
+            }];
+        }
+    }];
+
+}
+
+//设置状态栏颜色
+- (void)setStatusBarBackgroundColor:(UIColor *)color {
+    
+    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+        statusBar.backgroundColor = color;
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

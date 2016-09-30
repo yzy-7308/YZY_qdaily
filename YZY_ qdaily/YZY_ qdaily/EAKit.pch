@@ -22,4 +22,11 @@
 #import "UIView+ShowMessage.h"
 #import "UIBarButtonItem+SetImage_Click.h"
 
+#import <Masonry.h>
+#import <AFNetworking.h>
+
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
+
+
 #endif /* EAKit_pch */

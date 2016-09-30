@@ -14,8 +14,7 @@
 #import "YZYPostModel.h"
 #import "YZYColumnModel.h"
 
-#define WIDTH self.contentView.bounds.size.width
-#define HEIGHT self.contentView.bounds.size.height
+
 
 @interface ZeroTableViewCell ()
 

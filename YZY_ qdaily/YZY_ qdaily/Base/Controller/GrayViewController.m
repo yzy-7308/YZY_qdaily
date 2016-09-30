@@ -16,28 +16,26 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationController.navigationBar.translucent = YES;
     
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
 
-    
-    self.view.backgroundColor = [UIColor clearColor];
-    
+    self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+    // Do any additional setup after loading the view.
     // 设置模糊效果
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     // 创建模糊效果的视图
-    self.effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    
+    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     // 添加到有模糊效果的控件上
-        _effectView.frame = [UIScreen mainScreen].bounds;
-        [self.view addSubview:_effectView];
+    effectView.frame = [UIScreen mainScreen].bounds;
+    [self.view addSubview:effectView];
 
 
 }

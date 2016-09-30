@@ -2,18 +2,19 @@
 //  YZYPostModel.h
 //  YZY_ qdaily
 //
-//  Created by dllo on 16/9/23.
+//  Created by dllo on 16/9/29.
 //  Copyright © 2016年 yzy. All rights reserved.
 //
 
 #import "BaseModel.h"
+
 
 @class YZYCategoryModel;
 @class YZYColumnModel;
 
 @interface YZYPostModel : BaseModel
 
-@property (nonatomic, assign)id myId;
+@property (nonatomic, retain)id myId;
 
 @property (nonatomic, assign)NSInteger genre;
 
@@ -50,3 +51,4 @@
 @property (nonatomic, assign)NSInteger record_count;
 
 @end
+

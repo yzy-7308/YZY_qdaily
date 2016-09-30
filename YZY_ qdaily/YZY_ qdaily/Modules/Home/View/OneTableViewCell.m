@@ -14,9 +14,6 @@
 #import <UIImageView+WebCache.h>
 #import "NSDate+Categories.h"
 
-#define WIDTH self.contentView.bounds.size.width
-#define HEIGHT self.contentView.bounds.size.height
-
 @interface OneTableViewCell ()
 
 @property (nonatomic, retain)UILabel *titleLabel;

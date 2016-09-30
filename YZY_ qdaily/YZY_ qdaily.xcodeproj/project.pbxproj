@@ -14,6 +14,9 @@
 		4982EB6A1D93CDBD000AA4FA /* OneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4982EB691D93CDBD000AA4FA /* OneTableViewCell.m */; };
 		4982EB6D1D9403B5000AA4FA /* TwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4982EB6C1D9403B5000AA4FA /* TwoTableViewCell.m */; };
 		4982EB701D9403BF000AA4FA /* ZeroTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4982EB6F1D9403BF000AA4FA /* ZeroTableViewCell.m */; };
+		49C284161D9E1132006501E1 /* CategoriesOfNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C284151D9E1132006501E1 /* CategoriesOfNews.m */; };
+		49C2841A1D9E1515006501E1 /* NewsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C284181D9E1515006501E1 /* NewsCollectionViewCell.m */; };
+		49C2841B1D9E1515006501E1 /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49C284191D9E1515006501E1 /* NewsCollectionViewCell.xib */; };
 		49C298DD1D90B84F0094A47C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C298DC1D90B84F0094A47C /* main.m */; };
 		49C298E01D90B84F0094A47C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C298DF1D90B84F0094A47C /* AppDelegate.m */; };
 		49C298E81D90B84F0094A47C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C298E71D90B84F0094A47C /* Assets.xcassets */; };
@@ -42,10 +45,8 @@
 		49C29A5B1D9155F20094A47C /* XLImagePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C29A581D9155F20094A47C /* XLImagePageView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		49E799931D951479006D5258 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E799921D951479006D5258 /* BaseModel.m */; };
 		49E799961D951547006D5258 /* YZYBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E799951D951547006D5258 /* YZYBaseModel.m */; };
-		49E799991D9515AD006D5258 /* YZYPostModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E799981D9515AD006D5258 /* YZYPostModel.m */; };
-		49E7999F1D9516A0006D5258 /* YZYColumnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E7999E1D9516A0006D5258 /* YZYColumnModel.m */; };
-		49E799A21D9516EF006D5258 /* YZYShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E799A11D9516EF006D5258 /* YZYShareModel.m */; };
-		49E799A51D9517EA006D5258 /* YZYCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E799A41D9517EA006D5258 /* YZYCategoryModel.m */; };
+		49EF9EA01D9BE861002BFD8E /* FloatingActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EF9E9F1D9BE861002BFD8E /* FloatingActionButton.m */; };
+		49EF9EA31D9BED5C002BFD8E /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EF9EA21D9BED5C002BFD8E /* MenuViewController.m */; };
 		49F1B3891D920D8D004A37FD /* YZYBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F1B3881D920D8D004A37FD /* YZYBaseView.m */; };
 		49F1B38F1D920E06004A37FD /* YZYBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F1B38E1D920E06004A37FD /* YZYBaseViewController.m */; };
 		49F1B39A1D922EF0004A37FD /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F1B3991D922EF0004A37FD /* DetailsViewController.m */; };
@@ -53,6 +54,11 @@
 		49F2FA961D9626DC0020BCCA /* GrayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F2FA951D9626DC0020BCCA /* GrayViewController.m */; };
 		49F2FAA91D96940B0020BCCA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F2FAA71D96940B0020BCCA /* LoginViewController.m */; };
 		49F2FAAA1D96940B0020BCCA /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F2FAA81D96940B0020BCCA /* LoginViewController.xib */; };
+		49FDF5531D9D13BB00FFB309 /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDF5521D9D13BB00FFB309 /* MenuTableViewCell.m */; };
+		49FDF5621D9D16F900FFB309 /* YZYPostModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDF5611D9D16F900FFB309 /* YZYPostModel.m */; };
+		49FDF5651D9D174C00FFB309 /* YZYCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDF5641D9D174C00FFB309 /* YZYCategoryModel.m */; };
+		49FDF5681D9D176F00FFB309 /* YZYColumnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDF5671D9D176F00FFB309 /* YZYColumnModel.m */; };
+		49FDF56B1D9D17B500FFB309 /* YZYShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FDF56A1D9D17B500FFB309 /* YZYShareModel.m */; };
 		D928223B583FC77E234CCB80 /* libPods-YZY_ qdaily.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 786268386CC215EF59426162 /* libPods-YZY_ qdaily.a */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +77,11 @@
 		4982EB6C1D9403B5000AA4FA /* TwoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoTableViewCell.m; sourceTree = "<group>"; };
 		4982EB6E1D9403BF000AA4FA /* ZeroTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroTableViewCell.h; sourceTree = "<group>"; };
 		4982EB6F1D9403BF000AA4FA /* ZeroTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroTableViewCell.m; sourceTree = "<group>"; };
+		49C284141D9E1132006501E1 /* CategoriesOfNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesOfNews.h; sourceTree = "<group>"; };
+		49C284151D9E1132006501E1 /* CategoriesOfNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesOfNews.m; sourceTree = "<group>"; };
+		49C284171D9E1515006501E1 /* NewsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCollectionViewCell.h; sourceTree = "<group>"; };
+		49C284181D9E1515006501E1 /* NewsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCollectionViewCell.m; sourceTree = "<group>"; };
+		49C284191D9E1515006501E1 /* NewsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsCollectionViewCell.xib; sourceTree = "<group>"; };
 		49C298D81D90B84F0094A47C /* YZY_ qdaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YZY_ qdaily.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C298DC1D90B84F0094A47C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		49C298DE1D90B84F0094A47C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -130,14 +141,10 @@
 		49E799921D951479006D5258 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		49E799941D951547006D5258 /* YZYBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYBaseModel.h; sourceTree = "<group>"; };
 		49E799951D951547006D5258 /* YZYBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYBaseModel.m; sourceTree = "<group>"; };
-		49E799971D9515AD006D5258 /* YZYPostModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYPostModel.h; sourceTree = "<group>"; };
-		49E799981D9515AD006D5258 /* YZYPostModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYPostModel.m; sourceTree = "<group>"; };
-		49E7999D1D9516A0006D5258 /* YZYColumnModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYColumnModel.h; sourceTree = "<group>"; };
-		49E7999E1D9516A0006D5258 /* YZYColumnModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYColumnModel.m; sourceTree = "<group>"; };
-		49E799A01D9516EF006D5258 /* YZYShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYShareModel.h; sourceTree = "<group>"; };
-		49E799A11D9516EF006D5258 /* YZYShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYShareModel.m; sourceTree = "<group>"; };
-		49E799A31D9517EA006D5258 /* YZYCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYCategoryModel.h; sourceTree = "<group>"; };
-		49E799A41D9517EA006D5258 /* YZYCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYCategoryModel.m; sourceTree = "<group>"; };
+		49EF9E9E1D9BE861002BFD8E /* FloatingActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatingActionButton.h; sourceTree = "<group>"; };
+		49EF9E9F1D9BE861002BFD8E /* FloatingActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatingActionButton.m; sourceTree = "<group>"; };
+		49EF9EA11D9BED5C002BFD8E /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		49EF9EA21D9BED5C002BFD8E /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		49F1B3871D920D8D004A37FD /* YZYBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYBaseView.h; sourceTree = "<group>"; };
 		49F1B3881D920D8D004A37FD /* YZYBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYBaseView.m; sourceTree = "<group>"; };
 		49F1B38D1D920E06004A37FD /* YZYBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYBaseViewController.h; sourceTree = "<group>"; };
@@ -151,6 +158,16 @@
 		49F2FAA61D96940B0020BCCA /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		49F2FAA71D96940B0020BCCA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		49F2FAA81D96940B0020BCCA /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		49FDF5511D9D13BB00FFB309 /* MenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewCell.h; sourceTree = "<group>"; };
+		49FDF5521D9D13BB00FFB309 /* MenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewCell.m; sourceTree = "<group>"; };
+		49FDF5601D9D16F900FFB309 /* YZYPostModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYPostModel.h; sourceTree = "<group>"; };
+		49FDF5611D9D16F900FFB309 /* YZYPostModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYPostModel.m; sourceTree = "<group>"; };
+		49FDF5631D9D174C00FFB309 /* YZYCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYCategoryModel.h; sourceTree = "<group>"; };
+		49FDF5641D9D174C00FFB309 /* YZYCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYCategoryModel.m; sourceTree = "<group>"; };
+		49FDF5661D9D176F00FFB309 /* YZYColumnModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYColumnModel.h; sourceTree = "<group>"; };
+		49FDF5671D9D176F00FFB309 /* YZYColumnModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYColumnModel.m; sourceTree = "<group>"; };
+		49FDF5691D9D17B500FFB309 /* YZYShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYShareModel.h; sourceTree = "<group>"; };
+		49FDF56A1D9D17B500FFB309 /* YZYShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYShareModel.m; sourceTree = "<group>"; };
 		786268386CC215EF59426162 /* libPods-YZY_ qdaily.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YZY_ qdaily.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B033F25CF50DB43C9A4C9C1D /* Pods-YZY_ qdaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YZY_ qdaily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YZY_ qdaily/Pods-YZY_ qdaily.debug.xcconfig"; sourceTree = "<group>"; };
 		D0CAE3108F0FA84F60DABFAB /* Pods-YZY_ qdaily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YZY_ qdaily.release.xcconfig"; path = "Pods/Target Support Files/Pods-YZY_ qdaily/Pods-YZY_ qdaily.release.xcconfig"; sourceTree = "<group>"; };
@@ -226,6 +243,7 @@
 		49C298F51D90BBCB0094A47C /* Encapsulation */ = {
 			isa = PBXGroup;
 			children = (
+				49EF9E9D1D9BE831002BFD8E /* FloatingButton */,
 				49F1B3941D922B58004A37FD /* ShareView */,
 				49F1B3931D922B51004A37FD /* Levitate_Menu */,
 				49C299871D90D1DB0094A47C /* Carousel  */,
@@ -274,14 +292,6 @@
 				49E799921D951479006D5258 /* BaseModel.m */,
 				49E799941D951547006D5258 /* YZYBaseModel.h */,
 				49E799951D951547006D5258 /* YZYBaseModel.m */,
-				49E799971D9515AD006D5258 /* YZYPostModel.h */,
-				49E799981D9515AD006D5258 /* YZYPostModel.m */,
-				49E799A31D9517EA006D5258 /* YZYCategoryModel.h */,
-				49E799A41D9517EA006D5258 /* YZYCategoryModel.m */,
-				49E7999D1D9516A0006D5258 /* YZYColumnModel.h */,
-				49E7999E1D9516A0006D5258 /* YZYColumnModel.m */,
-				49E799A01D9516EF006D5258 /* YZYShareModel.h */,
-				49E799A11D9516EF006D5258 /* YZYShareModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -411,6 +421,8 @@
 				49F1B39C1D922F6E004A37FD /* RootViewController.m */,
 				4909C7831D9928CA00A38DD4 /* NewsViewController.h */,
 				4909C7841D9928CA00A38DD4 /* NewsViewController.m */,
+				49EF9EA11D9BED5C002BFD8E /* MenuViewController.h */,
+				49EF9EA21D9BED5C002BFD8E /* MenuViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -418,6 +430,14 @@
 		49C29A301D9155AD0094A47C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				49FDF5601D9D16F900FFB309 /* YZYPostModel.h */,
+				49FDF5611D9D16F900FFB309 /* YZYPostModel.m */,
+				49FDF5631D9D174C00FFB309 /* YZYCategoryModel.h */,
+				49FDF5641D9D174C00FFB309 /* YZYCategoryModel.m */,
+				49FDF5661D9D176F00FFB309 /* YZYColumnModel.h */,
+				49FDF5671D9D176F00FFB309 /* YZYColumnModel.m */,
+				49FDF5691D9D17B500FFB309 /* YZYShareModel.h */,
+				49FDF56A1D9D17B500FFB309 /* YZYShareModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -425,6 +445,8 @@
 		49C29A331D9155AD0094A47C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49FDF5511D9D13BB00FFB309 /* MenuTableViewCell.h */,
+				49FDF5521D9D13BB00FFB309 /* MenuTableViewCell.m */,
 				4982EB6E1D9403BF000AA4FA /* ZeroTableViewCell.h */,
 				4982EB6F1D9403BF000AA4FA /* ZeroTableViewCell.m */,
 				4982EB681D93CDBD000AA4FA /* OneTableViewCell.h */,
@@ -497,9 +519,23 @@
 			path = XLImagePageView;
 			sourceTree = "<group>";
 		};
+		49EF9E9D1D9BE831002BFD8E /* FloatingButton */ = {
+			isa = PBXGroup;
+			children = (
+				49EF9E9E1D9BE861002BFD8E /* FloatingActionButton.h */,
+				49EF9E9F1D9BE861002BFD8E /* FloatingActionButton.m */,
+			);
+			path = FloatingButton;
+			sourceTree = "<group>";
+		};
 		49F1B3931D922B51004A37FD /* Levitate_Menu */ = {
 			isa = PBXGroup;
 			children = (
+				49C284141D9E1132006501E1 /* CategoriesOfNews.h */,
+				49C284151D9E1132006501E1 /* CategoriesOfNews.m */,
+				49C284171D9E1515006501E1 /* NewsCollectionViewCell.h */,
+				49C284181D9E1515006501E1 /* NewsCollectionViewCell.m */,
+				49C284191D9E1515006501E1 /* NewsCollectionViewCell.xib */,
 			);
 			path = Levitate_Menu;
 			sourceTree = "<group>";
@@ -553,6 +589,7 @@
 				TargetAttributes = {
 					49C298D71D90B84F0094A47C = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = NJUZVDF942;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -583,6 +620,7 @@
 				49C298EB1D90B84F0094A47C /* LaunchScreen.storyboard in Resources */,
 				49C298E81D90B84F0094A47C /* Assets.xcassets in Resources */,
 				49F2FAAA1D96940B0020BCCA /* LoginViewController.xib in Resources */,
+				49C2841B1D9E1515006501E1 /* NewsCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,10 +680,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4909C7791D990CB600A38DD4 /* UIView+ShowMessage.m in Sources */,
-				49E799A51D9517EA006D5258 /* YZYCategoryModel.m in Sources */,
-				49E7999F1D9516A0006D5258 /* YZYColumnModel.m in Sources */,
+				49FDF5681D9D176F00FFB309 /* YZYColumnModel.m in Sources */,
 				49F2FAA91D96940B0020BCCA /* LoginViewController.m in Sources */,
 				4982EB6D1D9403B5000AA4FA /* TwoTableViewCell.m in Sources */,
+				49FDF5651D9D174C00FFB309 /* YZYCategoryModel.m in Sources */,
 				49F1B38F1D920E06004A37FD /* YZYBaseViewController.m in Sources */,
 				49C29A1E1D9155970094A47C /* NSString+Regex.m in Sources */,
 				49C29A591D9155F20094A47C /* UIImageView+XLWebCache.m in Sources */,
@@ -655,34 +693,39 @@
 				49C2998D1D90DC0D0094A47C /* CarouselCollectionViewCell.m in Sources */,
 				49E799961D951547006D5258 /* YZYBaseModel.m in Sources */,
 				49C29A1A1D9155970094A47C /* NSDate+EasyExtend.mm in Sources */,
+				49FDF56B1D9D17B500FFB309 /* YZYShareModel.m in Sources */,
 				49E799931D951479006D5258 /* BaseModel.m in Sources */,
+				49EF9EA01D9BE861002BFD8E /* FloatingActionButton.m in Sources */,
 				49C29A1B1D9155970094A47C /* NSDictionary+Categories.m in Sources */,
 				49C2998A1D90D2060094A47C /* CarouselView.m in Sources */,
 				49C298E01D90B84F0094A47C /* AppDelegate.m in Sources */,
+				49EF9EA31D9BED5C002BFD8E /* MenuViewController.m in Sources */,
 				49C29A5B1D9155F20094A47C /* XLImagePageView.m in Sources */,
 				49C29A241D9155970094A47C /* DataBaseManager.m in Sources */,
 				49C29A231D9155970094A47C /* UIView+Frame.m in Sources */,
 				49F2FA961D9626DC0020BCCA /* GrayViewController.m in Sources */,
 				49F1B39D1D922F6E004A37FD /* RootViewController.m in Sources */,
 				49C29A281D9155970094A47C /* NSUserDefaultsUtils.m in Sources */,
+				49FDF5531D9D13BB00FFB309 /* MenuTableViewCell.m in Sources */,
 				49C29A1D1D9155970094A47C /* NSString+Categories.m in Sources */,
 				49C29A261D9155970094A47C /* AppStoreUtils.m in Sources */,
+				49C284161D9E1132006501E1 /* CategoriesOfNews.m in Sources */,
 				49C29A201D9155970094A47C /* UIButton+Block.m in Sources */,
 				49C29A181D9155970094A47C /* NSArray+Categories.m in Sources */,
 				4909C7851D9928CA00A38DD4 /* NewsViewController.m in Sources */,
+				49FDF5621D9D16F900FFB309 /* YZYPostModel.m in Sources */,
 				4982EB6A1D93CDBD000AA4FA /* OneTableViewCell.m in Sources */,
 				49C29A1C1D9155970094A47C /* NSNumber+Extend.m in Sources */,
 				4909C77C1D990DB300A38DD4 /* UIBarButtonItem+SetImage_Click.m in Sources */,
 				49C29A221D9155970094A47C /* UIImage+Categories.m in Sources */,
+				49C2841A1D9E1515006501E1 /* NewsCollectionViewCell.m in Sources */,
 				49C29A1F1D9155970094A47C /* NSUserDefaults+Categories.m in Sources */,
 				49F1B3891D920D8D004A37FD /* YZYBaseView.m in Sources */,
 				49C29A211D9155970094A47C /* UIColor+Categories.m in Sources */,
 				4909C7761D990C5B00A38DD4 /* UILabel+SizeToFit_W_H.m in Sources */,
-				49E799991D9515AD006D5258 /* YZYPostModel.m in Sources */,
 				49C29A5A1D9155F20094A47C /* XLImagePageDetailCell.m in Sources */,
 				49C298DD1D90B84F0094A47C /* main.m in Sources */,
 				49F1B39A1D922EF0004A37FD /* DetailsViewController.m in Sources */,
-				49E799A21D9516EF006D5258 /* YZYShareModel.m in Sources */,
 				49C29A271D9155970094A47C /* FileManagerUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -797,8 +840,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				DEVELOPMENT_TEAM = NJUZVDF942;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Users/dllo/Desktop/YZY_ qdaily/YZY_ qdaily/EAKit.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/YZY_ qdaily/EAKit.pch";
 				INFOPLIST_FILE = "YZY_ qdaily/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -813,8 +857,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				DEVELOPMENT_TEAM = NJUZVDF942;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Users/dllo/Desktop/YZY_ qdaily/YZY_ qdaily/EAKit.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/YZY_ qdaily/EAKit.pch";
 				INFOPLIST_FILE = "YZY_ qdaily/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

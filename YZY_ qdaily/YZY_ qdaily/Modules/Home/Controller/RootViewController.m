@@ -8,16 +8,16 @@
 
 #import "RootViewController.h"
 #import "CarouselView.h"
-#import <AFNetworking.h>
 #import "HttpAPIConst.h"
 #import "YZYBaseModel.h"
 #import "ZeroTableViewCell.h"
 #import "OneTableViewCell.h"
 #import "TwoTableViewCell.h"
-#import <Masonry.h>
 #import <MJRefresh.h>
 #import "NewsViewController.h"
 #import "YZYPostModel.h"
+#import "FloatingActionButton.h"
+#import "MenuViewController.h"
 
 
 static NSString *const zeroTableViewCell = @"zeroCell";
@@ -28,7 +28,7 @@ static NSString *const twoTableViewCell = @"twoCell";
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
 
-// Zapfino 字体
+
 @interface RootViewController ()
 
 <
@@ -44,14 +44,25 @@ UITableViewDataSource
 
 @property (nonatomic, copy)NSString *number;
 
+@property (nonatomic, assign) CGFloat start;
+
+@property (nonatomic, retain) FloatingActionButton *menuButton;
+
 @end
 
 @implementation RootViewController
 
+- (void)dealloc {
+    [_tableView release];
+    [_objectArray release];
+    [_carouselArray release];
+    [_number release];
+    [super dealloc];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     
 //    [self performSelector:@selector(hidden) withObject:nil afterDelay:0.5];
-    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
 
 }
 
@@ -59,17 +70,12 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.navigationController.navigationBar.translucent = YES;
     self.objectArray = [NSMutableArray array];
     self.carouselArray = [NSMutableArray array];
     [self createTableView];
+    [self createFloatingButton];
     
-   
-
 }
-
-
 
 //设置状态栏颜色
 - (void)setStatusBarBackgroundColor:(UIColor *)color {
@@ -80,8 +86,22 @@ UITableViewDataSource
     }
 }
 
+// 开始拖拽
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _start = scrollView.contentOffset.y;
+}
+
+// 结束减速
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (0 == _menuButton.alpha) {
+        [UIView animateWithDuration:0.2f delay:1.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            _menuButton.alpha = 1;
+        } completion:nil];
+    }
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%f", scrollView.contentOffset.y);
+
     if (scrollView.contentOffset.y > 300) {
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
         [self setStatusBarBackgroundColor:[UIColor whiteColor]];
@@ -89,13 +109,19 @@ UITableViewDataSource
         [self setStatusBarBackgroundColor:[UIColor clearColor]];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     }
+    
+    [UIView animateWithDuration:1.f animations:^{
+        if (_start < scrollView.contentOffset.y) {
+            _menuButton.alpha = 0;
+        }else if (_start > scrollView.contentOffset.y) {
+            _menuButton.alpha = 1;
+        }
+    }];
+
 }
 
-
-
-
 - (void)createTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -64, WIDTH, HEIGHT) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -110,7 +136,6 @@ UITableViewDataSource
     _tableView.mj_footer = [MJRefreshBackFooter footerWithRefreshingTarget:self refreshingAction:@selector(Loading)];
 
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     YZYBaseModel *yzy = _objectArray[indexPath.row];
@@ -145,7 +170,6 @@ UITableViewDataSource
         return HEIGHT / 2 + 10;
     }
     return 135;
-    
 }
 
 // 刷新
@@ -193,12 +217,6 @@ UITableViewDataSource
             }
             CarouselView *carouseView = [[CarouselView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT / 10 * 4.13)];
             carouseView.YZYArray = _carouselArray;
-//            [carouseView setDealWithYzy:^(YZYBaseModel *yzy) {
-//                NewsViewController *newsView = [[NewsViewController alloc] init];
-//                newsView.yzy = yzy;
-//                [self.navigationController pushViewController:newsView animated:YES];
-//                [newsView release];
-//            }];
             carouseView.dealWithYzy = ^(YZYBaseModel *yzy) {
                 NewsViewController *newsView = [[NewsViewController alloc] init];
                 newsView.yzy = yzy;
@@ -216,9 +234,7 @@ UITableViewDataSource
         }];
         
     });
-    
-   
- 
+
 }
 
 - (void) hidden {
@@ -244,6 +260,35 @@ UITableViewDataSource
         [self.view removeFromSuperview];
     }];
 }
+
+
+- (void)createFloatingButton {
+    self.menuButton = [[FloatingActionButton alloc] initWithFrame:CGRectMake(20, HEIGHT - 70, 40, 40)];
+    UIImage *image = [UIImage imageNamed:@"Page_One_Logo"];
+    UIImage *newImage = [self scaleFromImage:image toSize:CGSizeMake(22, 40)];
+    [_menuButton setImage:newImage forState:UIControlStateNormal];
+    [_menuButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        MenuViewController *menuVC = [[MenuViewController alloc] init];
+        menuVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        menuVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:menuVC animated:YES completion:nil];
+        [menuVC release];
+    } ];
+    [self.view bringSubviewToFront:_menuButton];
+    [self.view addSubview:_menuButton];
+    
+}
+
+- (UIImage *)scaleFromImage:(UIImage *)image toSize:(CGSize)size {
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+
+
 
 
 - (void)didReceiveMemoryWarning {

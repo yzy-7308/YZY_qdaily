@@ -2,7 +2,7 @@
 //  YZYColumnModel.h
 //  YZY_ qdaily
 //
-//  Created by dllo on 16/9/23.
+//  Created by dllo on 16/9/29.
 //  Copyright © 2016年 yzy. All rights reserved.
 //
 
@@ -41,5 +41,6 @@
 @property (nonatomic, retain)YZYShareModel *share;
 
 @property (nonatomic, assign)BOOL subscribe_status;
+
 
 @end

@@ -2,7 +2,7 @@
 //  YZYShareModel.h
 //  YZY_ qdaily
 //
-//  Created by dllo on 16/9/23.
+//  Created by dllo on 16/9/29.
 //  Copyright © 2016年 yzy. All rights reserved.
 //
 
@@ -17,5 +17,6 @@
 @property (nonatomic, copy)NSString *text;
 
 @property (nonatomic, copy)NSString *image;
+
 
 @end

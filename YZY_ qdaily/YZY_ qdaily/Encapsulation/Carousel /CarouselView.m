@@ -11,9 +11,6 @@
 #import <Masonry.h>
 
 
-#define WIDTH self.bounds.size.width
-#define HEIGHT self.bounds.size.height
-
 static NSString *const cellIdentifier = @"cell";
 
 @interface CarouselView ()
@@ -37,16 +34,17 @@ CarouselViewDelegate
 @implementation CarouselView
 
 - (void)dealloc {
+    Block_release(_dealWithYzy);
     [_collectionView release];
     [_currentYZYArray release];
     [_pageControl release];
     [_timer release];
+    [_YZYArray release];
     [super dealloc];
     
 }
 
 - (void)nursingNewsByCarousel:(YZYBaseModel *)yzy {
-    NSLog(@"%@", yzy);
     self.dealWithYzy(yzy);
 }
 
@@ -56,7 +54,6 @@ CarouselViewDelegate
     if (self) {
         // 初始化可变数组
         self.currentYZYArray = [NSMutableArray array];
-//        self.YZYArray = [NSMutableArray array];
 
         // 初始化collectionView
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -77,9 +74,9 @@ CarouselViewDelegate
         // 初始化pageControl
         self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectZero];
         _pageControl.pageIndicatorTintColor = [UIColor grayColor];
-        _pageControl.alpha = 0.7;
+//        _pageControl.alpha = 0.7;
         _pageControl.currentPageIndicatorTintColor = [UIColor orangeColor];
-        _pageControl.hidesForSinglePage = YES;
+//        _pageControl.hidesForSinglePage = YES;
         _pageControl.currentPage = 0;
         [_pageControl addTarget:self action:@selector(pageControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:_pageControl];
@@ -155,15 +152,15 @@ CarouselViewDelegate
     return cell;
 }
 
-
-
-
 - (void)layoutSubviews {
     [super layoutSubviews];
     _collectionView.frame = self.bounds;
-    
-
-
+    [_pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(_collectionView.mas_bottom);
+        make.centerX.equalTo(_collectionView.mas_centerX);
+        make.width.equalTo(@50);
+        make.height.equalTo(@20);
+    }];
 }
 
 // 添加定时器
@@ -185,8 +182,6 @@ CarouselViewDelegate
             pageNumber ++;
         }
     _collectionView.contentOffset = CGPointMake(pageNumber * WIDTH, 0);
-
-
     
 //    NSInteger pageNumber = _collectionView.contentOffset.x / WIDTH;
 //    
@@ -197,7 +192,6 @@ CarouselViewDelegate
     
     [_collectionView setContentOffset:CGPointMake((pageNumber + 1) * WIDTH, 0) animated:YES];
     _pageControl.currentPage = pageNumber;
-    
     
 }
 

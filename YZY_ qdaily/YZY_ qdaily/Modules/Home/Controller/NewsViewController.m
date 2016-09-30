@@ -12,8 +12,6 @@
 #import "YZYBaseModel.h"
 #import "YZYPostModel.h"
 
-#define WIDTH [UIScreen mainScreen].bounds.size.width
-#define HEIGHT [UIScreen mainScreen].bounds.size.height
 
 @interface NewsViewController ()
 
@@ -27,6 +25,14 @@
 
 @implementation NewsViewController
 
+- (void)dealloc{
+    _webView.delegate = nil;
+    _webView.scrollView.delegate = nil;
+    [_yzy release];
+    [_webView release];
+    [super dealloc];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
@@ -39,10 +45,9 @@
     
     
     self.navigationItem.hidesBackButton =YES;
-    self.navigationController.navigationBar.translucent = YES;
     [self setStatusBarBackgroundColor:[UIColor clearColor]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, -64, WIDTH, HEIGHT)];
+     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     NSString *url = [NSString stringWithFormat:@"%@/app3/articles/info/%@.json?", kDevelopHostUrl, _yzy.post.myId];
@@ -87,16 +92,13 @@
     
     [UIView animateWithDuration:1.5f animations:^{
         if (_start < scrollView.contentOffset.y) {
-            [UIView animateWithDuration:1.5f animations:^{
-                [[UIApplication sharedApplication] setStatusBarHidden:YES];
-                _webView.frame = CGRectMake(0, -64, WIDTH, HEIGHT + 20);
-            }];
+            [[UIApplication sharedApplication] setStatusBarHidden:YES];
+            _webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT + 20);
         }else if (_start > scrollView.contentOffset.y) {
-            [UIView animateWithDuration:1.0f animations:^{
-                [[UIApplication sharedApplication] setStatusBarHidden:NO];
-                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-                [self setStatusBarBackgroundColor:[UIColor whiteColor]];
-            }];
+            [[UIApplication sharedApplication] setStatusBarHidden:NO];
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+            _webView.scrollView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+            [self setStatusBarBackgroundColor:[UIColor whiteColor]];
         }
     }];
 

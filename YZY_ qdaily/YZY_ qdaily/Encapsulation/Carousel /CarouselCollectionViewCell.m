@@ -24,6 +24,8 @@
 @implementation CarouselCollectionViewCell
 
 - (void)dealloc {
+    self.yzyzyzy = nil;
+    [_yzy release];
     [_myImageView release];
     [_myLabel release];
     [super dealloc];

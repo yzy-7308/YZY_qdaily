@@ -17,7 +17,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     
 //    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    self.navigationController.navigationBar.translucent = YES;
+
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
+
 }
 
 
@@ -25,9 +29,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
     self.view.backgroundColor = [UIColor whiteColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
+
+
+    
+
 }
 
 - (void)didReceiveMemoryWarning {

@@ -24,7 +24,7 @@
 
 @property (nonatomic, assign)NSInteger publish_time;
 
-@property (nonatomic, copy)NSString *image;
+@property (nonatomic, copy)NSString *myImage;
 
 @property (nonatomic, assign)NSInteger start_time;
 

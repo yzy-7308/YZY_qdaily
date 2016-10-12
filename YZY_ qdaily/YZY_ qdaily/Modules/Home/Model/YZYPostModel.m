@@ -17,7 +17,7 @@
     [_myId release];
     [_title release];
     [_myDescription release];
-    [_image release];
+    [_myImage release];
     [_super_tag release];
     [_appview release];
     [_film_length release];
@@ -33,6 +33,9 @@
     }
     if ([key isEqualToString:@"description"]) {
         self.myDescription = value;
+    }
+    if ([key isEqualToString:@"image"]) {
+        self.myImage = value;
     }
     
 }

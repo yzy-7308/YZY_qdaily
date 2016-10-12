@@ -14,4 +14,6 @@ typedef void (^Callback)();
 
 + (UIBarButtonItem *)getBarButtonItemWithImage: (UIImage *)image target:(Callback)block;
 
++ (UIBarButtonItem *)getBarButtonItemWithButton: (UIButton *)button target:(Callback)block;
+
 @end

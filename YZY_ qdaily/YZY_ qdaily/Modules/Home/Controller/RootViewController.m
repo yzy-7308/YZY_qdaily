@@ -13,11 +13,13 @@
 #import "ZeroTableViewCell.h"
 #import "OneTableViewCell.h"
 #import "TwoTableViewCell.h"
-#import <MJRefresh.h>
 #import "NewsViewController.h"
 #import "YZYPostModel.h"
 #import "FloatingActionButton.h"
 #import "MenuViewController.h"
+#import "YZYLeftSidebar.h"
+#import "VoteViewController.h"
+#import "SaidViewController.h"
 
 
 static NSString *const zeroTableViewCell = @"zeroCell";
@@ -25,8 +27,7 @@ static NSString *const oneTableViewCell = @"oneCell";
 static NSString *const twoTableViewCell = @"twoCell";
 
 
-#define WIDTH [UIScreen mainScreen].bounds.size.width
-#define HEIGHT [UIScreen mainScreen].bounds.size.height
+
 
 
 @interface RootViewController ()
@@ -42,6 +43,8 @@ UITableViewDataSource
 
 @property (nonatomic, retain)NSMutableArray *carouselArray;
 
+@property (nonatomic, retain)NSMutableArray *leftArray;
+
 @property (nonatomic, copy)NSString *number;
 
 @property (nonatomic, assign) CGFloat start;
@@ -53,6 +56,9 @@ UITableViewDataSource
 @implementation RootViewController
 
 - (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    [_leftArray release];
     [_tableView release];
     [_objectArray release];
     [_carouselArray release];
@@ -62,18 +68,21 @@ UITableViewDataSource
 
 - (void)viewWillAppear:(BOOL)animated {
     
-//    [self performSelector:@selector(hidden) withObject:nil afterDelay:0.5];
-
+    
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
     self.objectArray = [NSMutableArray array];
     self.carouselArray = [NSMutableArray array];
+    self.leftArray = [NSMutableArray array];
+    [self getLeft_sidebar];
     [self createTableView];
     [self createFloatingButton];
+    
     
 }
 
@@ -139,11 +148,24 @@ UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     YZYBaseModel *yzy = _objectArray[indexPath.row];
-    NewsViewController *newsView = [[NewsViewController alloc] init];
-    newsView.yzy = yzy;
-    [self.navigationController pushViewController:newsView animated:YES];
-    [newsView release];
-    
+    if (0 == yzy.type) {
+        if(1000 == yzy.post.genre) {
+            VoteViewController *vote = [[VoteViewController alloc] init];
+            vote.yzy = _objectArray[indexPath.row];
+            [self.navigationController pushViewController:vote animated:YES];
+            [vote release];
+        }else if (1001 == yzy.post.genre) {
+            SaidViewController *said = [[SaidViewController alloc] init];
+            said.yzy = _objectArray[indexPath.row];
+            [self.navigationController pushViewController:said animated:YES];
+            [said release];
+        }
+    }else {
+        NewsViewController *newsView = [[NewsViewController alloc] init];
+        newsView.yzy = yzy;
+        [self.navigationController pushViewController:newsView animated:YES];
+        [newsView release];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -151,25 +173,28 @@ UITableViewDataSource
      if (0 == yzy.type) {
         ZeroTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:zeroTableViewCell];
         cell.yzy = _objectArray[indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
      }else if (2 == yzy.type) {
          TwoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:twoTableViewCell];
          cell.yzy = _objectArray[indexPath.item];
+         cell.selectionStyle = UITableViewCellSelectionStyleNone;
          return cell;
      }
     OneTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:oneTableViewCell];
     cell.yzy = _objectArray[indexPath.item];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     YZYBaseModel *yzy = _objectArray[indexPath.item];
     if (0 == yzy.type) {
-        return HEIGHT / 2 - 10;
+        return (HEIGHT - 50) / 2 - 10;
     }else if (2 == yzy.type) {
-        return HEIGHT / 2 + 10;
+        return (HEIGHT - 50) / 2 + 10;
     }
-    return 135;
+    return 130;
 }
 
 // 刷新
@@ -202,7 +227,6 @@ UITableViewDataSource
                 [_objectArray removeAllObjects];
                 [_carouselArray removeAllObjects];
             }
-            
             NSDictionary *response = [responseObject objectForKey:@"response"];
             self.number = [response objectForKey:@"last_key"];
             NSArray *feeds = [response objectForKey:@"feeds"];
@@ -237,7 +261,7 @@ UITableViewDataSource
 
 }
 
-- (void) hidden {
+- (void)hidden {
     // 启动动画
     UIImageView *background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LaunchImage-700"]];
     background.frame = [UIScreen mainScreen].bounds;
@@ -250,28 +274,31 @@ UITableViewDataSource
         [background removeFromSuperview];
     }];
     
-    [UIView animateWithDuration:3 animations:^{
-        background.alpha = 0.0;
-        // 背景色设置成clearColor，不然动画结束感觉ViewController是跳出来的。
-        self.view.backgroundColor = [UIColor clearColor];
-        
-    } completion:^(BOOL finished) {
-        
-        [self.view removeFromSuperview];
-    }];
+//    [UIView animateWithDuration:3 animations:^{
+//        background.alpha = 0.0;
+//        // 背景色设置成clearColor，不然动画结束感觉ViewController是跳出来的。
+//        self.view.backgroundColor = [UIColor clearColor];
+//        
+//    } completion:^(BOOL finished) {
+//        
+//        [self.view removeFromSuperview];
+//    }];
 }
 
 
 - (void)createFloatingButton {
-    self.menuButton = [[FloatingActionButton alloc] initWithFrame:CGRectMake(20, HEIGHT - 70, 40, 40)];
+    self.menuButton = [[FloatingActionButton alloc] initWithFrame:CGRectMake(20, HEIGHT - 70, 50, 50)];
     UIImage *image = [UIImage imageNamed:@"Page_One_Logo"];
     UIImage *newImage = [self scaleFromImage:image toSize:CGSizeMake(22, 40)];
     [_menuButton setImage:newImage forState:UIControlStateNormal];
     [_menuButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        
         MenuViewController *menuVC = [[MenuViewController alloc] init];
+        menuVC.leftArray = _leftArray;
+        menuVC.VC = self;
         menuVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         menuVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:menuVC animated:YES completion:nil];
+        [self presentViewController:menuVC animated:NO completion:nil];
         [menuVC release];
     } ];
     [self.view bringSubviewToFront:_menuButton];
@@ -287,6 +314,20 @@ UITableViewDataSource
     return newImage;
 }
 
+- (void)getLeft_sidebar {
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString *url = [NSString stringWithFormat:@"%@/app3/homes/left_sidebar.json?", kDevelopHostUrl];
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray *array = [responseObject objectForKey:@"response"];
+        for (NSDictionary *dic in array) {
+            YZYLeftSidebar *left = [YZYLeftSidebar modelWithDic:dic];
+            [_leftArray addObject:left];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"left_error : %@", error);
+    }];
+}
 
 
 

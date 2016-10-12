@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class YZYLeftSidebar;
 
 @interface CategoriesOfNews : UIView
 
-@property (nonatomic, retain) NSArray *iconArray;
+@property (nonatomic, retain)NSMutableArray *leftArray;
 
-@property (nonatomic, retain) NSArray *titleArray;
+@property (nonatomic, retain) UICollectionView *collectionView;
+
+@property (nonatomic, copy) void (^JumpDetails)(YZYLeftSidebar *yzy);
 
 @end

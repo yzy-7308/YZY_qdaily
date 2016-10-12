@@ -12,7 +12,7 @@
 
 @interface YZYColumnModel : BaseModel
 
-@property (nonatomic, assign)NSInteger myId;
+@property (nonatomic, retain)id myId;
 
 @property (nonatomic, copy)NSString *name;
 
@@ -20,7 +20,7 @@
 
 @property (nonatomic, copy)NSString *icon;
 
-@property (nonatomic, copy)NSString *image;
+@property (nonatomic, copy)NSString *myImage;
 
 @property (nonatomic, copy)NSString *image_large;
 
@@ -30,9 +30,9 @@
 
 @property (nonatomic, assign)NSInteger genre;
 
-@property (nonatomic, assign)NSInteger subscriber_num;
+@property (nonatomic, retain)id subscriber_num;
 
-@property (nonatomic, assign)NSInteger post_count;
+@property (nonatomic, retain)id post_count;
 
 @property (nonatomic, copy)NSString *sort_time;
 

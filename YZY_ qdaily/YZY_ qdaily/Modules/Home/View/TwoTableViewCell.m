@@ -39,6 +39,7 @@
 @implementation TwoTableViewCell
 
 - (void)dealloc {
+    [_yzy release];
     [_myImageView release];
     [_titleLabel release];
     [_descLabel release];
@@ -47,7 +48,7 @@
     [_commentLabel release];
     [_praiseImageView release];
     [_praiseLabel release];
-    [_titleLabel release];
+    [_timeLabel release];
     [super dealloc];
 }
 
@@ -84,7 +85,7 @@
         
         self.praiseImageView  =[[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_praiseImageView];
-        [_praiseLabel release];
+        [_praiseImageView release];
         
         self.descLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _descLabel.numberOfLines = 0;
@@ -139,7 +140,7 @@
         make.top.equalTo(self.contentView.mas_top);
         make.left.equalTo(self.contentView.mas_left);
         make.right.equalTo(self.contentView.mas_right);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-135);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-(self.contentView.frame.size.height / 2.44));
     }];
     
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

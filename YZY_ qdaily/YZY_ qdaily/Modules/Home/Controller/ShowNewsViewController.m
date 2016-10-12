@@ -1,0 +1,188 @@
+//
+//  ShowNewsViewController.m
+//  YZY_ qdaily
+//
+//  Created by dllo on 16/10/10.
+//  Copyright © 2016年 yzy. All rights reserved.
+//
+
+#import "ShowNewsViewController.h"
+#import "ShowAgainViewController.h"
+
+@interface ShowNewsViewController ()
+
+<
+UIWebViewDelegate,
+UIScrollViewDelegate
+>
+
+@property (nonatomic, retain)UIWebView *webView;
+
+@property (nonatomic, assign) CGFloat start;
+
+@property (nonatomic, retain)UIImageView *myImageView;
+
+@property (nonatomic, assign)NSInteger count;
+
+
+@end
+
+@implementation ShowNewsViewController
+
+- (void)dealloc {
+    _webView.delegate = nil;
+    _webView.scrollView.delegate = nil;
+    [_url release];
+    [_webView release];
+    [_myImageView release];
+    [super dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    //    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+    if (0 == _count) {
+        self.myImageView = [[UIImageView alloc] init];
+        [self.view addSubview:_myImageView];
+        [_myImageView release];
+        [_myImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view.mas_centerX);
+            make.centerY.equalTo(self.view.mas_centerY);
+            make.width.equalTo(@150);
+            make.height.equalTo(@150);
+        }];
+        NSMutableArray *imageArray = [NSMutableArray array];
+        for (int i = 0; i < 93; i++) {
+            NSString *imageName = [NSString stringWithFormat: @"QDArticleLoading_%03d", i];
+            UIImage *image = [UIImage imageNamed:imageName];
+            [imageArray addObject:image];
+        }
+        _myImageView.animationImages = imageArray;
+        _myImageView.animationDuration = 0.05 * imageArray.count;
+        [_myImageView startAnimating];
+    }
+    _count++;
+    
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.navigationItem.hidesBackButton =YES;
+    [self setStatusBarBackgroundColor:[UIColor clearColor]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [self createWebView];
+    [self createFloating];
+}
+
+- (void)createWebView {
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    NSString *uu = [NSString stringWithFormat:@"http://app3.qdaily.com/app3/articles/%@.html", _url];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:uu]]];
+    _webView.dataDetectorTypes = UIDataDetectorTypeAll;
+    _webView.delegate = self;
+    _webView.scrollView.delegate = self;
+    _webView.scalesPageToFit = YES;
+    [self.view addSubview:_webView];
+    [_webView release];
+    
+    
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    //    NSLog(@"loading");
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    //    NSLog(@"finish");
+    [_myImageView stopAnimating];
+    [_myImageView removeFromSuperview];
+    
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    //    NSLog(@"fail");
+    
+}
+
+// 开始拖拽
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _start = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    [UIView animateWithDuration:1.5f animations:^{
+        if (_start < scrollView.contentOffset.y) {
+            [[UIApplication sharedApplication] setStatusBarHidden:YES];
+            _webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT + 20);
+        }else if (_start > scrollView.contentOffset.y) {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO];
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+            _webView.scrollView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+            [self setStatusBarBackgroundColor:[UIColor whiteColor]];
+        }
+    }];
+    
+}
+
+- (void)createFloating {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"navigation_back_round_normal"] forState:UIControlStateNormal];
+    [self.view addSubview:button];
+    [self.view bringSubviewToFront:button];
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).offset(20);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-20);
+        make.width.equalTo(@50);
+        make.height.equalTo(@50);
+    }];
+    [button handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+}
+
+//设置状态栏颜色
+- (void)setStatusBarBackgroundColor:(UIColor *)color {
+    
+    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+        statusBar.backgroundColor = color;
+    }
+}
+
+
+- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSString *url= [NSString stringWithFormat:@"%@",request.URL];
+    if ([url hasPrefix:@"http://m.qdaily.com/mobile/articles"]) {
+        NSString *myId = [url substringWithRange:NSMakeRange(36, 5)];
+        ShowAgainViewController *show = [[ShowAgainViewController alloc] init];
+        show.url = myId;
+        [self.navigationController pushViewController:show animated:YES];
+        [show release];
+        [myId release];
+        return NO;
+    }
+    
+    
+    return YES;
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

@@ -37,6 +37,7 @@
 @implementation OneTableViewCell
 
 - (void)dealloc{
+    [_yzy release];
     [_titleLabel release];
     [_categoryLabel release];
     [_commentLabel release];
@@ -116,8 +117,8 @@
     [super layoutSubviews];
     [_myImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right);
-        make.top.equalTo(self.contentView.mas_top);
-        make.bottom.equalTo(self.contentView.mas_bottom);
+        make.top.equalTo(self.contentView.mas_top).offset(5);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-5);
         make.left.equalTo(self.contentView.mas_centerX);
     }];
     

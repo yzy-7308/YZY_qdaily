@@ -16,10 +16,13 @@
 
 - (void)dealloc {
     
+    [_myId release];
+    [_subscriber_num release];
+    [_post_count release];
     [_name release];
     [_myDescription release];
     [_icon release];
-    [_image release];
+    [_myImage release];
     [_image_large release];
     [_content_provider release];
     [_sort_time release];
@@ -39,10 +42,13 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"id"]) {
-        self.myId = (long)value;
+        self.myId = value;
     }
     if ([key isEqualToString:@"description"]) {
         self.myDescription = value;
+    }
+    if ([key isEqualToString:@"image"]) {
+        self.myImage = value;
     }
 }
 

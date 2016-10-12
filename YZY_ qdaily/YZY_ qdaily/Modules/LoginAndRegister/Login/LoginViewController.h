@@ -10,4 +10,6 @@
 
 @interface LoginViewController : GrayViewController
 
+@property (nonatomic, retain)UIImage *myImage;
+
 @end

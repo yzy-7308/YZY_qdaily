@@ -11,11 +11,10 @@
 
 @interface NewsViewController : DetailsViewController
 
-<
-UIWebViewDelegate
->
 
 @property (nonatomic, retain) YZYBaseModel *yzy;
+
+@property (nonatomic, copy)NSString *url;
 
 
 @end

@@ -18,5 +18,6 @@
 
 @property (nonatomic, retain)YZYPostModel *post;
 
+@property (nonatomic, retain)NSMutableArray *questions;
 
 @end

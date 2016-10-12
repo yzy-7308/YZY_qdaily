@@ -8,6 +8,7 @@
 
 #import "CategoriesOfNews.h"
 #import "NewsCollectionViewCell.h"
+#import "YZYLeftSidebar.h"
 
 static NSString *const cellIdentifier = @"newsCell";
 
@@ -15,16 +16,22 @@ static NSString *const cellIdentifier = @"newsCell";
 
 <
 UICollectionViewDelegate,
-UICollectionViewDataSource
+UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout
 >
-
-
-
-@property (nonatomic, retain) UICollectionView *collectionView;
 
 @end
 
 @implementation CategoriesOfNews
+
+- (void)dealloc {
+    Block_release(_JumpDetails);
+    _collectionView.delegate = nil;
+    _collectionView.dataSource = nil;
+    [_leftArray release];
+    [_collectionView release];
+    [super dealloc];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -32,18 +39,17 @@ UICollectionViewDataSource
     if (self) {
         // 初始化collectionView
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.itemSize = self.bounds.size;
         flowLayout.minimumLineSpacing = 0;
         flowLayout.minimumInteritemSpacing = 0;
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-        _collectionView.alpha = 0;
+        _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.pagingEnabled = YES;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         [self addSubview:_collectionView];
-        [_collectionView registerClass:[NewsCollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
+        [_collectionView registerNib:[UINib nibWithNibName:@"NewsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellIdentifier];
         [flowLayout release];
         [_collectionView release];
     
@@ -51,14 +57,29 @@ UICollectionViewDataSource
     return self;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.JumpDetails(_leftArray[indexPath.item]);
+}
+
+- (void)setLeftArray:(NSMutableArray *)leftArray {
+    if (_leftArray != leftArray) {
+        [_leftArray release];
+        _leftArray = [leftArray retain];
+        [_collectionView reloadData];
+    }
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(self.bounds.size.width / 2, 66);
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _iconArray.count;
+    return _leftArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.imageName = _iconArray[indexPath.item];
-    cell.title = _titleArray[indexPath.item];
+    cell.yzy = _leftArray[indexPath.item];
     cell.backgroundColor = [UIColor clearColor];
     return cell;
 }

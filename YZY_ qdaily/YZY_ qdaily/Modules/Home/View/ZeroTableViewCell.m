@@ -37,6 +37,8 @@
 @implementation ZeroTableViewCell
 
 - (void)dealloc{
+    [_yzy release];
+    [_view release];
     [_curiosityImageView release];
     [_curiosityLabel release];
     [_myImageView release];
@@ -138,15 +140,14 @@
         make.top.equalTo(_view.mas_bottom);
         make.left.equalTo(self.contentView.mas_left);
         make.right.equalTo(self.contentView.mas_right);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-110);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-(self.contentView.frame.size.height / 2.775));
     }];
     
-    CGSize size = [_titleLabel sizeThatFits:CGSizeMake(_titleLabel.frame.size.width, MAXFLOAT)];
-    _titleLabel.frame = CGRectMake(20, 260, 414 - 40, size.height);
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_myImageView.mas_bottom).offset(10);
         make.left.equalTo(self.contentView.mas_left).offset(20);
         make.right.equalTo(self.contentView.mas_right).offset(-20);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-55);
     }];
     
     [_descLabel mas_makeConstraints:^(MASConstraintMaker *make) {

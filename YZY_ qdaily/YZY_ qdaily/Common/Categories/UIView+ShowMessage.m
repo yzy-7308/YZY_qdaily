@@ -29,11 +29,11 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor];
     CGFloat width = [UILabel getWidthWithTitle:message font:label.font];
-    label.frame = CGRectMake(10, 5, width, 18);
+    label.frame = CGRectMake(10, 5, width, 20);
     [view addSubview:label];
     view.frame = CGRectMake((SCREEN_W - width - 20) / 2, SCREEN_H / 2 + 100, width + 20 , 25);
     [UIView animateWithDuration:2.0f animations:^{
-        view.frame = CGRectMake((SCREEN_W - width - 20) / 2, SCREEN_H / 2 + 70, width + 20, 25);
+        view.frame = CGRectMake((SCREEN_W - width - 20) / 2, SCREEN_H / 2 + 70, width + 20, 30);
         view.alpha = 0;
     } completion:^(BOOL finished) {
         [view removeFromSuperview];

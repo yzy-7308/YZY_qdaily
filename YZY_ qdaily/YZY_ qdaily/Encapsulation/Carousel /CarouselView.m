@@ -74,7 +74,6 @@ CarouselViewDelegate
         // 初始化pageControl
         self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectZero];
         _pageControl.pageIndicatorTintColor = [UIColor grayColor];
-//        _pageControl.alpha = 0.7;
         _pageControl.currentPageIndicatorTintColor = [UIColor orangeColor];
 //        _pageControl.hidesForSinglePage = YES;
         _pageControl.currentPage = 0;

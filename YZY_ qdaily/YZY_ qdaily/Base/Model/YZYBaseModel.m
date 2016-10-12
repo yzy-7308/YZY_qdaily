@@ -8,10 +8,12 @@
 
 #import "YZYBaseModel.h"
 #import "YZYPostModel.h"
+#import "YZYquestionsModel.h"
 
 @implementation YZYBaseModel
 
 - (void)dealloc {
+    [_questions release];
     [_image release];
     [_post release];
     [super dealloc];
@@ -35,6 +37,17 @@
         self.post = [YZYPostModel modelWithDic:value];
         return;
     }
+    if ([key isEqualToString:@"questions"]) {
+        NSArray *Arr = value;
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSMutableDictionary *dic in Arr) {
+            YZYquestionsModel *yzy = [YZYquestionsModel modelWithDic:dic];
+            [array addObject:yzy];
+        }
+        self.questions = array;
+        return;
+    }
+
     [super setValue:value forKey:key];
 }
 

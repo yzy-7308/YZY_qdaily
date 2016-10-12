@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class YZYLeftSidebar;
 
 @interface NewsCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, copy) NSString *imageName;
-
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, retain)YZYLeftSidebar *yzy;
 
 @end

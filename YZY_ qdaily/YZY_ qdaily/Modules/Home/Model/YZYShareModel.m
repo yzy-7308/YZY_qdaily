@@ -14,9 +14,16 @@
     [_url release];
     [_title release];
     [_text release];
-    [_image release];
+    [_myImage release];
     [super dealloc];
 }
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"image"]) {
+        self.myImage = value;
+    }
+}
+
 
 
 @end

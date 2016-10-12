@@ -7,6 +7,7 @@
 //
 
 #import "NewsCollectionViewCell.h"
+#import "YZYLeftSidebar.h"
 
 @interface NewsCollectionViewCell ()
 
@@ -27,29 +28,26 @@
 }
 
 - (void)dealloc {
+    [_yzy release];
     [_myImageView release];
     [_myLabel release];
     [super dealloc];
 }
 
-- (void)setImageName:(NSString *)imageName {
-    if (_imageName != imageName) {
-        [_imageName release];
-        _imageName = [imageName retain];
-        _myImageView.image = [UIImage imageNamed:_imageName];
-    }
-}
-
-- (void)setTitle:(NSString *)title {
-    if (_title != title) {
-        [_title release];
-        _title = [title retain];
-        _myLabel.textAlignment = NSTextAlignmentCenter;
-        _myLabel.font = [UIFont fontWithName:@"Zapfino" size:18];
+- (void)setYzy:(YZYLeftSidebar *)yzy {
+    if (_yzy != yzy) {
+        [_yzy release];
+        _yzy = [yzy retain];
+        [_myImageView sd_setImageWithURL:[NSURL URLWithString:_yzy.normal]];
+        _myLabel.textAlignment = NSTextAlignmentLeft;
+        _myLabel.font = [UIFont systemFontOfSize:18];
         _myLabel.textColor = [UIColor whiteColor];
-        _myLabel.text = _title;
+        _myLabel.text = _yzy.title;
 
     }
 }
+
+
+
 
 @end

@@ -22,4 +22,11 @@
     return barButtonItem;
 }
 
++ (UIBarButtonItem *)getBarButtonItemWithButton:(UIButton *)button target:(Callback)block {
+    [button setTitle:@"关闭" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return barButtonItem;
+}
+
 @end

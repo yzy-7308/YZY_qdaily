@@ -10,4 +10,8 @@
 
 @interface MenuViewController : GrayViewController
 
+@property (nonatomic, retain)NSMutableArray *leftArray;
+
+@property (nonatomic, retain)UIViewController *VC;
+
 @end

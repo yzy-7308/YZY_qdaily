@@ -16,7 +16,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-//    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
 }

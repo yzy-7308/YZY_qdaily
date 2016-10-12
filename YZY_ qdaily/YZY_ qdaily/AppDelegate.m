@@ -20,6 +20,10 @@
 
 @implementation AppDelegate
 
+- (void)dealloc {
+    [_window release];
+    [super dealloc];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -28,14 +32,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
-    GrayViewController *gray = [[GrayViewController alloc] init];
-    LoginViewController *login = [[LoginViewController alloc] init];
-    NewsViewController *news = [[NewsViewController alloc] init];
-    
+
     RootViewController *rootView = [[RootViewController alloc] init];
     UINavigationController *rootNavigation = [[UINavigationController alloc] initWithRootViewController:rootView];
     self.window.rootViewController = rootNavigation;
+    [rootNavigation release];
+    [rootView release];
+    [_window release];
 
     
     return YES;

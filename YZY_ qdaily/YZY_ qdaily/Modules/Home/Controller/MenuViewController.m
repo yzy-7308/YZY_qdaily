@@ -9,6 +9,15 @@
 #import "MenuViewController.h"
 #import "MenuTableViewCell.h"
 #import "CategoriesOfNews.h"
+#import "RegisterByMailViewController.h"
+#import "AboutUsViewController.h"
+#import "CuriosityInstituteViewController.h"
+#import "CategoriesViewController.h"
+#import "RegisterViewController.h"
+#import "UIImage+Categories.h"
+#import "SystemSettingsViewController.h"
+#import "SearchViewController.h"
+#import "ColumnCenterViewController.h"
 
 static NSString *const menuIdentifier = @"menuCell";
 
@@ -27,10 +36,6 @@ UITableViewDataSource
 
 @property (nonatomic, retain) CategoriesOfNews *myView;
 
-@property (nonatomic, retain) NSArray *categoryImage;
-
-@property (nonatomic, retain) NSArray *categoryTitle;
-
 @property (nonatomic, retain) UIButton *goBackButton;
 
 @property (nonatomic, retain) UIButton *goHomeButton;
@@ -39,8 +44,21 @@ UITableViewDataSource
 
 @implementation MenuViewController
 
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    [_myView release];
+    [_titleArray release];
+    [_imageArray release];
+    [_tableView release];
+    [_leftArray release];
+    [_VC release];
+    [super dealloc];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
-    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
+//    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
+//    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewDidLoad {
@@ -48,7 +66,6 @@ UITableViewDataSource
     // Do any additional setup after loading the view.
     [self setStatusBarBackgroundColor:[UIColor clearColor]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-
 
     [self createFloatingButton];
     [self createTop];
@@ -67,13 +84,20 @@ UITableViewDataSource
 }
 
 - (void)createTop {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    
+    UIButton *label = [[UIButton alloc] initWithFrame:CGRectZero];
     label.layer.cornerRadius = 20;
     label.clipsToBounds = YES;
-    label.text = @"             搜索";
-    label.font = [UIFont systemFontOfSize:18];
-    label.textColor = [UIColor whiteColor];
+    [label setTitle:@"搜索" forState:UIControlStateNormal];
+    [label setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     label.backgroundColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:0.6];
+    [label handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        SearchViewController *search = [[SearchViewController alloc] init];
+        [self dismissViewControllerAnimated:NO completion:^{
+            [_VC presentViewController:search animated:YES completion:nil];
+        }];
+        [search release];
+    }];
     [self.view addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(20);
@@ -81,7 +105,6 @@ UITableViewDataSource
         make.top.equalTo(self.view.mas_top).offset(30);
         make.height.equalTo(@40);
     }];
-    [label release];
     
     UIImageView *searchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"searchicon"]];
     [label addSubview:searchImageView];
@@ -98,7 +121,12 @@ UITableViewDataSource
     [settingButton setImage:[UIImage imageNamed:@"sidebar_setting"] forState:UIControlStateNormal];
     settingButton.highlighted = NO;
     [settingButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        //
+        SystemSettingsViewController *setting = [[SystemSettingsViewController alloc] init];
+        [self dismissViewControllerAnimated:NO completion:^{
+            setting.myImage = [UIImage captureImageFromView: _VC.view];
+            [_VC.navigationController pushViewController:setting animated:YES];
+        }];
+        [setting release];
     }];
     [self.view addSubview:settingButton];
     [settingButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -162,7 +190,7 @@ UITableViewDataSource
         make.width.equalTo(@40);
     }];
     UILabel *offlineLabel = [[UILabel alloc] init];
-    offlineLabel.text = @"夜间";
+    offlineLabel.text = @"离线";
     offlineLabel.font = [UIFont systemFontOfSize:13];
     offlineLabel.textAlignment = NSTextAlignmentCenter;
     offlineLabel.textColor = [UIColor whiteColor];
@@ -218,55 +246,49 @@ UITableViewDataSource
 - (void)creatrArray {
     self.imageArray = @[@"menu_about", @"menu_category", @"menu_column", @"menu_lab", @"menu_noti", @"menu_user", @"menu_home"];
     self.titleArray = @[@"About us", @"Categories of news", @"Column center", @"Curiosity Institute", @"My message", @"Personal Center", @"Home"];
-    self.categoryImage = @[@"menu_home", @"menu_home", @"menu_home", @"menu_home", @"menu_home", @"menu_home", @"menu_home", @"menu_home", @"menu_home", @"menu_home", @"menu_home"];
-    self.categoryTitle = @[@"长文章", @"Top 15", @"10个图", @"大公司头条", @"商业", @"智能", @"设计", @"时尚", @"娱乐", @"城市", @"游戏"];
+
     
 }
 
 - (void)createTableView {
-
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.rowHeight = 66;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_tableView];
-    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-80);
-        make.top.equalTo(self.view.mas_top).offset(200);
-        
-    }];
-    [_tableView registerClass:[MenuTableViewCell class] forCellReuseIdentifier:menuIdentifier];
-    [_tableView release];
-}
-
-- (void)createNewsCategory {
-//        self.myView = [[UIView alloc] init];
-//        _myView.layer.borderWidth = 3.f;
-//        _myView.backgroundColor = [UIColor redColor];
-//    _myView.alpha = 0.5f;
-//        _myView.layer.borderColor = [UIColor blackColor].CGColor;
-//        [self.view addSubview:_myView];
-//        [_myView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(self.view.mas_right);
-//            make.right.equalTo(self.view.mas_right);
-//            make.bottom.equalTo(self.view.mas_bottom).offset(-80);
-//            make.top.equalTo(self.view.mas_top).offset(200);
-//        }];
-//        [_myView release];
-    self.myView = [[CategoriesOfNews alloc] init];
-    _myView.iconArray = _categoryImage;
-    _myView.titleArray = _categoryTitle;
-    [self.view addSubview:_myView];
-    [_myView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view.mas_right);
+    if (_tableView == nil) {
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.rowHeight = 66;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left);
             make.right.equalTo(self.view.mas_right);
             make.bottom.equalTo(self.view.mas_bottom).offset(-80);
             make.top.equalTo(self.view.mas_top).offset(200);
+        }];
+        [_tableView registerClass:[MenuTableViewCell class] forCellReuseIdentifier:menuIdentifier];
+        [_tableView release];
+    }
+    
+}
+
+- (void)createNewsCategory {
+    self.myView = [[CategoriesOfNews alloc] init];
+    [_myView setJumpDetails:^(YZYLeftSidebar *yzy) {
+        CategoriesViewController *cate = [[CategoriesViewController alloc] init];
+        cate.yzy = yzy;
+        [self dismissViewControllerAnimated:NO completion:^{
+            [_VC.navigationController pushViewController:cate animated:YES];
+        }];
+        [cate release];
     }];
-        [_myView release];
+    [self.view addSubview:_myView];
+    [_myView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_right);
+        make.width.equalTo(self.view.mas_width);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-80);
+        make.top.equalTo(self.view.mas_top).offset(200);
+    }];
+    _myView.leftArray = _leftArray;
+    [_myView release];
     self.goBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_goBackButton setImage:[UIImage imageNamed:@"homeBackButton"] forState:UIControlStateNormal];
      _goBackButton.frame = CGRectMake(WIDTH, HEIGHT - 70, 50, 50);
@@ -274,9 +296,17 @@ UITableViewDataSource
     [_goBackButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:20 options:UIViewAnimationOptionAllowUserInteraction animations:^{
             _tableView.frame = CGRectMake(0, 200, WIDTH, HEIGHT - 280);
-            _myView.frame = CGRectMake(WIDTH, 200, WIDTH, HEIGHT - 280);
+            
+            [_myView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.view.mas_right);
+                make.width.equalTo(self.view.mas_width);
+                make.bottom.equalTo(self.view.mas_bottom).offset(-80);
+                make.top.equalTo(self.view.mas_top).offset(200);
+            }];
+            [_myView.superview layoutIfNeeded];
+        
             _goHomeButton.frame = CGRectMake(15, HEIGHT - 70, 50, 50);
-            _goBackButton.frame = CGRectMake(WIDTH, HEIGHT - 70, 50, 50);
+            _goBackButton.frame = CGRectMake(WIDTH * 2, HEIGHT - 70, 50, 50);
             
         } completion:^(BOOL finished) {
             nil;
@@ -286,17 +316,28 @@ UITableViewDataSource
     
 }
 
-
+#pragma mark  - menu
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:{
-            
+            AboutUsViewController *about = [[AboutUsViewController alloc] init];
+            [self dismissViewControllerAnimated:NO completion:^{
+                [_VC presentViewController:about animated:YES completion:nil];
+                [about release];
+            }];
             break;
         }
         case 1:{
-            [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:20 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-                _tableView.frame = CGRectMake(-WIDTH, 200, WIDTH, HEIGHT - 280);
-                _myView.frame = CGRectMake(0, 200, WIDTH, HEIGHT - 280);
+            
+            [UIView animateWithDuration:0.7 delay:0.1 usingSpringWithDamping:0.5 initialSpringVelocity:20 options:UIViewAnimationOptionLayoutSubviews animations:^{
+                [_myView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.view.mas_left);
+                    make.width.equalTo(self.view.mas_width);
+                    make.bottom.equalTo(self.view.mas_bottom).offset(-80);
+                    make.top.equalTo(self.view.mas_top).offset(200);
+                }];
+                [_myView.superview layoutIfNeeded];
+                _tableView.frame = CGRectMake(-WIDTH * 2, 200, WIDTH, HEIGHT - 280);
                 _goHomeButton.frame = CGRectMake(-WIDTH, HEIGHT - 70, 50, 50);
                 _goBackButton.frame = CGRectMake(15, HEIGHT - 70, 50, 50);
             } completion:^(BOOL finished) {
@@ -305,14 +346,28 @@ UITableViewDataSource
             break;
         }
         case 2:{
+            ColumnCenterViewController *colum = [[ColumnCenterViewController alloc] init];
+            [self dismissViewControllerAnimated:NO completion:^{
+                [_VC.navigationController pushViewController:colum animated:YES];
+            }];
             
             break;
         }
         case 3:{
-            
+            CuriosityInstituteViewController *curiosity = [[CuriosityInstituteViewController alloc] init];
+            [self dismissViewControllerAnimated:NO completion:^{
+                [_VC.navigationController pushViewController:curiosity animated:YES];
+                [curiosity release];
+            }];
             break;
         }
         case 4:{
+            RegisterViewController *registerVC = [[RegisterViewController alloc] init];
+            [self dismissViewControllerAnimated:NO completion:^{
+                registerVC.myImage = [UIImage captureImageFromView: _VC.view];
+                [_VC presentViewController:registerVC animated:YES completion:nil];
+                [registerVC release];
+            }];
             
             break;
         }
@@ -320,13 +375,15 @@ UITableViewDataSource
             
             break;
         }
-        default:
+        default: {
+           [self dismissViewControllerAnimated:YES completion:nil];
             break;
+        }
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return _imageArray.count;
  
 }
 
@@ -341,6 +398,9 @@ UITableViewDataSource
     cell.selectionStyle = UITableViewCellSelectionStyleNone;  
     return cell;
 }
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

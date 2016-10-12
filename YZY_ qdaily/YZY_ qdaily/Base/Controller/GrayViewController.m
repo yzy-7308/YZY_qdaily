@@ -16,15 +16,20 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.navigationController.navigationBar.translucent = YES;
+
     
+    
+}
+
+- (void)dealloc {
+    [_effectView release];
+    [super dealloc];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
 
     self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];

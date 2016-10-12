@@ -24,6 +24,8 @@ UIScrollViewDelegate
 
 @property (nonatomic, assign)NSInteger count;
 
+@property (nonatomic, retain)UIButton *button;
+
 @end
 
 @implementation ShowAgainViewController
@@ -112,32 +114,33 @@ UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    [UIView animateWithDuration:1.5f animations:^{
+    [UIView animateWithDuration:0.5f animations:^{
         if (_start < scrollView.contentOffset.y) {
+            _button.alpha = 0;
             [[UIApplication sharedApplication] setStatusBarHidden:YES];
-            _webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT + 20);
+            _webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT );
         }else if (_start > scrollView.contentOffset.y) {
+            _button.alpha = 1;
             [[UIApplication sharedApplication] setStatusBarHidden:NO];
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
             _webView.scrollView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
             [self setStatusBarBackgroundColor:[UIColor whiteColor]];
         }
     }];
-    
 }
 
 - (void)createFloating {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"navigation_back_round_normal"] forState:UIControlStateNormal];
-    [self.view addSubview:button];
-    [self.view bringSubviewToFront:button];
-    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_button setImage:[UIImage imageNamed:@"navigation_back_round_normal"] forState:UIControlStateNormal];
+    [self.view addSubview:_button];
+    [self.view bringSubviewToFront:_button];
+    [_button mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(20);
         make.bottom.equalTo(self.view.mas_bottom).offset(-20);
         make.width.equalTo(@50);
         make.height.equalTo(@50);
     }];
-    [button handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    [_button handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }

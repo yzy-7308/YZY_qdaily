@@ -103,7 +103,7 @@ UITableViewDataSource
 // 结束减速
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (0 == _menuButton.alpha) {
-        [UIView animateWithDuration:0.2f delay:1.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [UIView animateWithDuration:0.2f delay:0.2f options:UIViewAnimationOptionCurveEaseInOut animations:^{
             _menuButton.alpha = 1;
         } completion:nil];
     }
@@ -119,7 +119,7 @@ UITableViewDataSource
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     }
     
-    [UIView animateWithDuration:1.f animations:^{
+    [UIView animateWithDuration:0.5f animations:^{
         if (_start < scrollView.contentOffset.y) {
             _menuButton.alpha = 0;
         }else if (_start > scrollView.contentOffset.y) {

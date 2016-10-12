@@ -70,6 +70,8 @@
         
         self.contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _contentLabel.textColor = [UIColor whiteColor];
+        _contentLabel.numberOfLines = 0;
+        [_contentLabel sizeToFit];
         _contentLabel.textAlignment = NSTextAlignmentCenter;
         _contentLabel.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:_contentLabel];
@@ -116,7 +118,7 @@
     [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.left.equalTo(self.contentView.mas_left).offset(15);
-        make.right.equalTo(self.contentView.mas_right).offset(15);
+        make.right.equalTo(self.contentView.mas_right).offset(-15);
     }];
     
     [_likeImageView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -166,31 +166,41 @@ UIScrollViewDelegate
 
 #pragma mark - UIScrollView
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+
+    if ([scrollView isEqual:_scrollView]) {
+        if (scrollView.contentOffset.x < WIDTH) {
+            NSIndexPath *index = [NSIndexPath indexPathForItem:0 inSection:0];
+            ColumnCollectionViewCell *cell = (ColumnCollectionViewCell *)[_collectionView cellForItemAtIndexPath:index];
+            cell.pieceLabel.textColor = [UIColor blackColor];
+            NSIndexPath *index1 = [NSIndexPath indexPathForItem:1 inSection:0];
+           ColumnCollectionViewCell *cellOther = (ColumnCollectionViewCell *)[_collectionView cellForItemAtIndexPath:index1];
+            cellOther.pieceLabel.textColor = [UIColor grayColor];
+        }else {
+            NSIndexPath *index = [NSIndexPath indexPathForItem:1 inSection:0];
+            ColumnCollectionViewCell *cell = (ColumnCollectionViewCell *)[_collectionView cellForItemAtIndexPath:index];
+            cell.pieceLabel.textColor = [UIColor blackColor];
+            NSIndexPath *index1 = [NSIndexPath indexPathForItem:0 inSection:0];
+            ColumnCollectionViewCell *cellOther = (ColumnCollectionViewCell *)[_collectionView cellForItemAtIndexPath:index1];
+            cellOther.pieceLabel.textColor = [UIColor grayColor];
+        }
+        
+    }
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     if ([scrollView isEqual:_scrollView]) {
         
-        
         if (scrollView.contentOffset.x < WIDTH) {
             [UIView animateWithDuration:0.5f animations:^{
                 _smallView.frame = CGRectMake(WIDTH / 8, 104, WIDTH / 4, 2);
-
             }];
-            ColumnCollectionViewCell *cell = (ColumnCollectionViewCell *)[_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathWithIndex:0]];
-            cell.pieceLabel.textColor = [UIColor blackColor];
-            ColumnCollectionViewCell *cellOther = (ColumnCollectionViewCell *)[_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathWithIndex:1]];
-            cellOther.pieceLabel.textColor = [UIColor grayColor];
         }else {
             [UIView animateWithDuration:0.5f animations:^{
                 _smallView.frame = CGRectMake(WIDTH * 5 / 8, 104, WIDTH / 4, 2);
-
             }];
-            ColumnCollectionViewCell *cell = (ColumnCollectionViewCell *)[_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathWithIndex:0]];
-            cell.pieceLabel.textColor = [UIColor grayColor];
-            ColumnCollectionViewCell *cellOther = (ColumnCollectionViewCell *)[_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathWithIndex:1]];
-            cellOther.pieceLabel.textColor = [UIColor blackColor];
         }
-        
     }
 }
 

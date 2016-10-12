@@ -50,6 +50,8 @@ UITableViewDataSource
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
+
 }
 
 - (void)viewDidLoad {

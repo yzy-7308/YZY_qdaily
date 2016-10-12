@@ -44,7 +44,7 @@ UIScrollViewDelegate
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-//    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
+    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
     if (0 == _count) {

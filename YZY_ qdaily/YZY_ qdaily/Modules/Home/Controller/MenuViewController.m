@@ -130,8 +130,8 @@ UITableViewDataSource
     }];
     [self.view addSubview:settingButton];
     [settingButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(70);
-        make.top.equalTo(label.mas_bottom).offset(40);
+        make.left.equalTo(self.view.mas_left).offset(WIDTH / 6.5);
+        make.top.equalTo(label.mas_bottom).offset(HEIGHT / 18.4);
         make.height.equalTo(@40);
         make.width.equalTo(@40);
     }];
@@ -157,8 +157,8 @@ UITableViewDataSource
     }];
     [self.view addSubview:nightButton];
     [nightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(settingButton.mas_left).offset(80);
-        make.top.equalTo(label.mas_bottom).offset(40);
+        make.left.equalTo(settingButton.mas_left).offset(WIDTH / 5.175);
+        make.top.equalTo(label.mas_bottom).offset(HEIGHT / 18.4);
         make.height.equalTo(@40);
         make.width.equalTo(@40);
     }];
@@ -184,8 +184,8 @@ UITableViewDataSource
     }];
     [self.view addSubview:offlineButton];
     [offlineButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(nightButton.mas_left).offset(80);
-        make.top.equalTo(label.mas_bottom).offset(40);
+        make.left.equalTo(nightButton.mas_left).offset(WIDTH / 5.175);
+        make.top.equalTo(label.mas_bottom).offset(HEIGHT / 18.4);
         make.height.equalTo(@40);
         make.width.equalTo(@40);
     }];
@@ -211,8 +211,8 @@ UITableViewDataSource
     }];
     [self.view addSubview:shareButton];
     [shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(offlineButton.mas_left).offset(80);
-        make.top.equalTo(label.mas_bottom).offset(40);
+        make.left.equalTo(offlineButton.mas_left).offset(WIDTH / 5.175);
+        make.top.equalTo(label.mas_bottom).offset(HEIGHT / 18.4);
         make.height.equalTo(@40);
         make.width.equalTo(@40);
     }];

@@ -138,13 +138,25 @@ UITableViewDataSource
     [_tableView.mj_footer endRefreshing];
 }
 
+
+
+
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     //回收键盘
     //(放弃第一响应者)
     //[textField resignFirstResponder];
     // 结束编辑状态
+    
+    
     [textField endEditing:YES];
-    [self getInfo:@"0" text:textField.text];
+   
+    if (_objectArray.count > 0) {
+        [_objectArray removeAllObjects];
+    }
+    
+    [self getInfo:@"0" text:_textField.text];
+
     
       return YES;
 }

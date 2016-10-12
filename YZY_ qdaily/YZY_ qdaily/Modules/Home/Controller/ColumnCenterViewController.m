@@ -44,12 +44,14 @@ UIScrollViewDelegate
 
 @property (nonatomic, copy)NSString *number;
 
+@property (nonatomic, retain)NSNumber *boolString;
 
 @end
 
 @implementation ColumnCenterViewController
 
 - (void)dealloc {
+    [_boolString release];
     _collectionView.delegate = nil;
     _collectionView.dataSource = nil;
     _tabelView.delegate = nil;
@@ -107,6 +109,8 @@ UIScrollViewDelegate
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 40) collectionViewLayout:flowLayout];
     _collectionView.backgroundColor = [UIColor whiteColor];
+    _collectionView.showsHorizontalScrollIndicator = NO;
+    _collectionView.scrollEnabled = NO;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     [self.view addSubview:_collectionView];
@@ -119,6 +123,7 @@ UIScrollViewDelegate
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 106, WIDTH, HEIGHT - 106)];
     _scrollView.delegate = self;
+    _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.pagingEnabled = YES;
     _scrollView.contentSize = CGSizeMake(WIDTH * 2, HEIGHT - 106);
     [self.view addSubview:_scrollView];
@@ -153,8 +158,9 @@ UIScrollViewDelegate
 
 // 加载
 - (void)Loading {
-    
-    [self getInfo:_number];
+    if ([_boolString isEqual:@true]) {
+        [self getInfo:_number];
+    }
     [_tabelView.mj_footer endRefreshing];
 }
 
@@ -244,13 +250,15 @@ UIScrollViewDelegate
                 [_objectArray removeAllObjects];
             }
             NSDictionary *response = [responseObject objectForKey:@"response"];
-            self.number = [response objectForKey:@"last_key"];
+            self.boolString = [response objectForKey:@"has_more"];
+            if ([_boolString isEqual:@true]) {
+                self.number = [response objectForKey:@"last_key"];
+            }
             for (NSDictionary *dic in [response objectForKey:@"columns"]) {
                 YZYColumnModel *yzy = [YZYColumnModel modelWithDic:dic];
                 [_objectArray addObject:yzy];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 [_tabelView reloadData];
             });
             

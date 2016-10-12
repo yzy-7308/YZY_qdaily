@@ -93,7 +93,7 @@ UITableViewDataSource
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         NSString *url = [NSString stringWithFormat:@"%@/app3/papers/index/%@.json?", kDevelopHostUrl, number];
         [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            if ([number isEqualToString:@"0"] ) {
+            if ([number isEqual:@0] ) {
                 [_objectArray removeAllObjects];
             }
             NSDictionary *response = [responseObject objectForKey:@"response"];

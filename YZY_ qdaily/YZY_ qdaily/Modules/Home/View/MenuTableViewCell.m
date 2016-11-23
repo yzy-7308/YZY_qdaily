@@ -39,10 +39,11 @@
         _myImageView.userInteractionEnabled = YES;
         [self.contentView addSubview:_myImageView];
         [_myImageView release];
-        
+//        Chalkboard SE
+//        Zapfino
         self.myLabel = [[UILabel alloc] init];
         _myLabel.textAlignment = NSTextAlignmentCenter;
-        _myLabel.font = [UIFont fontWithName:@"Zapfino" size:18];
+        _myLabel.font = [UIFont fontWithName:@"Papyrus" size:18];
         _myLabel.textColor = [UIColor whiteColor];
         [self.contentView addSubview:_myLabel];
         [_myLabel release];

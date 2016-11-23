@@ -17,13 +17,13 @@
 
 @implementation FloatingActionButton
 
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.9];
         self.layer.cornerRadius = self.frame.size.width / 2;
-        self.clipsToBounds = YES;
     }
     return self;
 }

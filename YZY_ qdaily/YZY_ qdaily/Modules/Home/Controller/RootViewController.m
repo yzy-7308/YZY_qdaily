@@ -289,6 +289,13 @@ UITableViewDataSource
 
 - (void)createFloatingButton {
     self.menuButton = [[FloatingActionButton alloc] initWithFrame:CGRectMake(20, HEIGHT - 70, 50, 50)];
+    
+    // 设置阴影颜色
+    _menuButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    // 设置阴影大小,向x正方向偏移5,向y方向偏移5
+    _menuButton.layer.shadowOffset = CGSizeMake(10, 5);
+    _menuButton.layer.shadowOpacity = 0.8;
+
     UIImage *image = [UIImage imageNamed:@"Page_One_Logo"];
     UIImage *newImage = [self scaleFromImage:image toSize:CGSizeMake(22, 40)];
     [_menuButton setImage:newImage forState:UIControlStateNormal];

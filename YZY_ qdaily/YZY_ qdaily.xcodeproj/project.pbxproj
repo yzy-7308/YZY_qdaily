@@ -66,6 +66,8 @@
 		49C29A591D9155F20094A47C /* UIImageView+XLWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C29A541D9155F20094A47C /* UIImageView+XLWebCache.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		49C29A5A1D9155F20094A47C /* XLImagePageDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C29A561D9155F20094A47C /* XLImagePageDetailCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		49C29A5B1D9155F20094A47C /* XLImagePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C29A581D9155F20094A47C /* XLImagePageView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		49D58F9B1DB5AA4500577A42 /* flower.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D58F9A1DB5AA4500577A42 /* flower.png */; };
+		49D58F9D1DB5AB0600577A42 /* jing.png in Resources */ = {isa = PBXBuildFile; fileRef = 49D58F9C1DB5AB0600577A42 /* jing.png */; };
 		49E253041DA78D32006A7DDC /* SaidViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E253031DA78D32006A7DDC /* SaidViewController.m */; };
 		49E253071DA79C62006A7DDC /* SaidCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E253061DA79C62006A7DDC /* SaidCollectionViewCell.m */; };
 		49E2530A1DA7A202006A7DDC /* YZYauthorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E253091DA7A202006A7DDC /* YZYauthorModel.m */; };
@@ -208,6 +210,8 @@
 		49C29A561D9155F20094A47C /* XLImagePageDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLImagePageDetailCell.m; sourceTree = "<group>"; };
 		49C29A571D9155F20094A47C /* XLImagePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLImagePageView.h; sourceTree = "<group>"; };
 		49C29A581D9155F20094A47C /* XLImagePageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLImagePageView.m; sourceTree = "<group>"; };
+		49D58F9A1DB5AA4500577A42 /* flower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flower.png; sourceTree = "<group>"; };
+		49D58F9C1DB5AB0600577A42 /* jing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jing.png; sourceTree = "<group>"; };
 		49E253021DA78D32006A7DDC /* SaidViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaidViewController.h; sourceTree = "<group>"; };
 		49E253031DA78D32006A7DDC /* SaidViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaidViewController.m; sourceTree = "<group>"; };
 		49E253051DA79C62006A7DDC /* SaidCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaidCollectionViewCell.h; sourceTree = "<group>"; };
@@ -379,6 +383,8 @@
 				49C298DE1D90B84F0094A47C /* AppDelegate.h */,
 				49C298DF1D90B84F0094A47C /* AppDelegate.m */,
 				49C298E71D90B84F0094A47C /* Assets.xcassets */,
+				49D58F9C1DB5AB0600577A42 /* jing.png */,
+				49D58F9A1DB5AA4500577A42 /* flower.png */,
 				493A8F2B1DAA5F7300BFE2E4 /* 关闭.png */,
 				493CEE191DA0DE1400ACF9C3 /* right.png */,
 				49AE48131D9F8A74006AF4D0 /* chacha.png */,
@@ -802,7 +808,7 @@
 				TargetAttributes = {
 					49C298D71D90B84F0094A47C = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = NJUZVDF942;
+						DevelopmentTeam = QWKQAE7W9B;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -834,10 +840,12 @@
 				49AE48121D9F87AD006AF4D0 /* RegisterViewController.xib in Resources */,
 				49C298E81D90B84F0094A47C /* Assets.xcassets in Resources */,
 				493CEE1A1DA0DE1400ACF9C3 /* right.png in Resources */,
+				49D58F9D1DB5AB0600577A42 /* jing.png in Resources */,
 				49AE48141D9F8A74006AF4D0 /* chacha.png in Resources */,
 				493A8F2C1DAA5F7300BFE2E4 /* 关闭.png in Resources */,
 				49F2FAAA1D96940B0020BCCA /* LoginViewController.xib in Resources */,
 				49AE48191D9FAE1B006AF4D0 /* RegisterByMailViewController.xib in Resources */,
+				49D58F9B1DB5AA4500577A42 /* flower.png in Resources */,
 				49C2841B1D9E1515006501E1 /* NewsCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1084,7 +1092,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
-				DEVELOPMENT_TEAM = NJUZVDF942;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QWKQAE7W9B;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/YZY_ qdaily/EAKit.pch";
 				INFOPLIST_FILE = "YZY_ qdaily/Info.plist";
@@ -1102,7 +1111,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
-				DEVELOPMENT_TEAM = NJUZVDF942;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QWKQAE7W9B;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/YZY_ qdaily/EAKit.pch";
 				INFOPLIST_FILE = "YZY_ qdaily/Info.plist";
